@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./img/主題標示.png" />
+    <title>我的書櫃</title>
+
+    <style>
+      /* 設定添加書籍指示style */
+      #myplus {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        background-image: url(./img/添加書籍.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 仿效故事story的頁首，做出滾動黏貼效果 -->
+    <!-- 連結不要有底線，全都白色 -->
+    <!-- 底色要再思考主題色 -->
+    <!-- 要做斷點設計 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">個人書庫</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="./personal_library_index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./贊助頁面.html">贊助</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                個人頁面
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./個人書架.html">我的書櫃</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    >log in</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link disabled"
+                href="#"
+                tabindex="-1"
+                aria-disabled="true"
+                >Disabled</a
+              >
+            </li>
+          </ul>
+          <form class="d-flex mb-3">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="輸入作者、書名、ISBN"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <br /><br /><br />
+
+    <!-- 有聯絡資訊、常見問題的footer -->
+    <div>
+      <a href="#"><div id="myplus">&&</div></a>
+    </div>
+
+    <footer>
+      <small> Copyright © 2024 Personal Liberary. All Rights Reserved. </small>
+    </footer>
+
+    <script src="./bootstrap.bundle.js"></script>
+  </body>
+</html>

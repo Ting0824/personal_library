@@ -1,0 +1,8 @@
+
+head 連接 css、footer css
+<link rel="stylesheet" href="./css/bootstrap.css" />
+<link rel="stylesheet" href="./css/index.css" />
+<link rel="icon" href="./img/主題標示.png">
+
+js
+<script src="./bootstrap.bundle.js"></script>
