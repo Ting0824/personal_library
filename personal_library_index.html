@@ -11,9 +11,8 @@
   </head>
   <body>
     <!-- 仿效故事story的頁首，做出滾動黏貼效果 -->
-    <!-- 連結不要有底線，全都白色 -->
     <!-- 底色要再思考主題色 -->
-    <!-- 要做斷點設計 -->
+     <!-- 頁首 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">個人書庫</a>
@@ -145,6 +144,7 @@
     </div>
     <br /><br />
 
+    <!-- 網站簡介 -->
     <div class="container">
       <!-- 透過chatgpt產出，還需再作修正 -->
       <!-- 加背景圖 -->
@@ -155,6 +155,7 @@
     </div></p>
 
     <br />
+    <!-- 最新消息 -->
     <div class="container">
       <h1 class="bg-info">最新消息</h1>
       <br />
@@ -185,9 +186,80 @@
       <hr />
     </div>
 
+    <!-- 輸入登入訊息彈跳視窗 -->
+     <!-- 還須調整輸入完成後連結的頁面-個人書櫃 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">登入</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 登入表單 -->
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="email" class="form-label">電子郵件</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="輸入電子郵件"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="輸入密碼"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="rememberMe"
+                  name="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe">記住我</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">登入</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+            <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- 有聯絡資訊、常見問題的footer -->
     <div></div>
-    <footer>
+    <footer class="fixed-bottom">
       <small> Copyright © 2024 Personal Liberary. All Rights Reserved. </small>
     </footer>
 

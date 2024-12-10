@@ -1,122 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>個人書架</title>
+    <!-- 引入 Bootstrap 5 的 CSS -->
     <link rel="stylesheet" href="./css/bootstrap.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./img/主題標示.png" />
-    <title>我的書櫃</title>
 
     <style>
-      /* 設定添加書籍指示style */
-      #myplus {
+      /* 讓側邊導覽列的寬度固定 */
+      .sidebar {
+        height: 100vh;
+        background-color: #f8f9fa;
+        padding-top: 20px;
         position: fixed;
-        right: 0;
+        top: 0;
+        left: 0;
         bottom: 0;
-        background-image: url(./img/添加書籍.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: transparent;
+        width: 250px;
+        transition: 0.3s;
+      }
+
+      .sidebar a {
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        color: #333;
+        font-size: 18px;
+      }
+
+      .sidebar a:hover {
+        background-color: #ddd;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.3s;
+      }
+
+      /* 在小螢幕上隱藏側邊欄並用漢堡控制頂端導覽列 */
+      @media (max-width: 768px) {
+        .sidebar {
+          position: absolute;
+          top: 0;
+          left: -250px;
+          width: 250px;
+        }
+
+        .sidebar.show {
+          left: 0;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        /* 顯示漢堡按鈕來控制頂端導航欄顯示與隱藏 */
+        .navbar-toggler {
+          display: block;
+        }
+
+        /* 隱藏側邊欄收合按鈕 */
+        .sidebar-toggler {
+          display: none;
+        }
+
+        /* 控制頂端導航欄顯示狀態 */
+        .navbar-collapse {
+          display: none;
+        }
+
+        .navbar-collapse.show {
+          display: block;
+        }
+      }
+
+      /* 桌面版不顯示側邊欄收合按鈕 */
+      @media (min-width: 769px) {
+        .sidebar-toggler {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 250px;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- 仿效故事story的頁首，做出滾動黏貼效果 -->
-    <!-- 連結不要有底線，全都白色 -->
-    <!-- 底色要再思考主題色 -->
-    <!-- 要做斷點設計 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">個人書庫</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="./personal_library_index.html"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./贊助頁面.html">贊助</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                個人頁面
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a class="dropdown-item" href="./個人書架.html">我的書櫃</a>
-                </li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    data-bs-toggle="modal"
-                    data-bs-target="#loginModal"
-                    >log in</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link disabled"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
-                >Disabled</a
-              >
-            </li>
-          </ul>
-          <form class="d-flex mb-3">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="輸入作者、書名、ISBN"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
+    <!-- 頂部導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- 漢堡按鈕，用來控制頂端導覽列的顯示 -->
+      <button
+        class="navbar-toggler ms-2"
+        type="button"
+        id="navbarTogglerBtn"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item ms-2">
+            <a class="nav-link active" href="./personal_library_index.html"
+              >首頁</a
+            >
+          </li>
+          <li class="nav-item ms-2">
+            <a class="nav-link" href="#">書架</a>
+          </li>
+          <li class="nav-item ms-2">
+            <a class="nav-link" href="#">閱讀紀錄</a>
+          </li>
+        </ul>
       </div>
     </nav>
 
-    <br /><br /><br />
-
-    <!-- 有聯絡資訊、常見問題的footer -->
-    <div>
-      <a href="#"><div id="myplus">&&</div></a>
+    <!-- 側邊導覽列 -->
+    <div class="sidebar" id="sidebar">
+      <a href="./personal_library_index.html">首頁</a>
+      <a href="#">書架</a>
+      <a href="#">閱讀紀錄</a>
+      <a href="#">收藏</a>
+      <a href="#">設置</a>
     </div>
 
-    <footer>
+    <!-- 主要內容區域 -->
+    <div class="main-content">
+      <h1>歡迎來到線上書櫃</h1>
+      <p>在這裡你可以管理你的書籍，查看你的閱讀紀錄，並自訂你的書櫃設置。</p>
+    </div>
+
+    <div></div>
+    <footer class="fixed-bottom">
       <small> Copyright © 2024 Personal Liberary. All Rights Reserved. </small>
     </footer>
 
+    <!-- 引入 Bootstrap 5 的 JS 和 Popper -->
     <script src="./bootstrap.bundle.js"></script>
+
+    <script>
+      // 控制頂端導航欄顯示與隱藏
+      const navbarTogglerBtn = document.getElementById("navbarTogglerBtn");
+      const navbarCollapse = document.getElementById("navbarNav");
+
+      // 點擊漢堡按鈕時控制頂端導航欄的顯示與隱藏
+      navbarTogglerBtn.addEventListener("click", function () {
+        navbarCollapse.classList.toggle("show");
+      });
+    </script>
   </body>
 </html>
