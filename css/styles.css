@@ -30,7 +30,6 @@ h3 {
 footer a:hover {
   color: #f39c12;
 }
-
 footer .container {
   display: flex;
   justify-content: space-between;
