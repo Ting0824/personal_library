@@ -9,6 +9,7 @@
     <title>常見問題</title>
   </head>
   <body>
+    <!-- 導覽列 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">個人書庫</a>
@@ -34,7 +35,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./贊助頁面.html">贊助</a>
+              <a class="nav-link" href="./贊助頁面.html">贊助我們</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -63,15 +64,7 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link disabled"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
-                >Disabled</a
-              >
-            </li>
+            
           </ul>
           <form class="d-flex mb-3">
             <input
@@ -87,11 +80,77 @@
         </div>
       </div>
     </nav>
-    <br /><br />
+    <!-- 輸入登入訊息彈跳視窗 -->
+    <!-- 還須調整輸入完成後連結的頁面-個人書櫃 -->
+    <div
+class="modal fade"
+id="loginModal"
+tabindex="-1"
+aria-labelledby="loginModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="loginModalLabel">登入</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <!-- 登入表單 -->
+      <form action="/login" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">電子郵件</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="輸入電子郵件"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">密碼</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="輸入密碼"
+            required
+          />
+        </div>
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="rememberMe"
+            name="rememberMe"
+          />
+          <label class="form-check-label" for="rememberMe">記住我</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">登入</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        關閉
+      </button>
+      <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+    </div>
+  </div>
+</div>
+     </div>
+    <br><br><br><br>
+    <!-- 常見問題 -->
     <!-- 使用手風琴模式 -->
     <!-- https://bootstrap5.hexschool.com/docs/5.0/components/accordion/ -->
-    <!-- 開1其他會一起開 -->
-    <div class="container my-4">
+    <div class="container">
     <h2>常見問題（FAQ）</h2>
       <div class="accordion" id="accordionExample">
         <div class="accordion-item">
@@ -167,109 +226,119 @@
           </div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
+                4. 我如何更改我的書櫃分類？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseFour" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>在書櫃頁面，找到您要修改的書籍，點擊書籍旁的“編輯”按鈕，然後選擇新的分類。保存更改後，該書籍將移動到您選擇的分類中。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
+                5. 我可以在書櫃中添加哪些類型的書籍？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseFive" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>您可以將任何電子書、紙本書籍或您閱讀過的書籍添加到您的書櫃中。只要是您感興趣的書籍，都可以將其手動添加到書櫃，並根據閱讀狀況進行管理。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
+                6. 如何搜尋書籍？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseSix" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong> 您可以使用書櫃頁面上方的搜尋框，輸入書名、作者或關鍵字來查找書籍。系統會自動根據您輸入的內容篩選並顯示相關書籍。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingSeven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseOne">
+                7. 如何刪除書籍？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseSeven" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>若您想刪除書櫃中的書籍，請在書籍卡片旁找到刪除選項。點擊刪除後，該書籍將會從您的書櫃中移除，並且不再顯示在任何分類中。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingEight">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseOne">
+                8. 我可以將書櫃中的書籍與他人共享嗎？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseEight" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>當前，我們提供書籍分享功能，您可以將書櫃中的書籍透過社交平台或電郵與朋友或家人分享。我們會在未來版本中推出更多的共享功能，敬請期待。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingNine">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseOne">
+                9. 如何修改我的帳戶設置？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseNine" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>您可以在“帳戶設置”頁面修改您的個人資料、密碼、通知設置等信息。只需登錄後，點擊頁面右上角的“設定”按鈕，即可進行設置修改。
               </div>
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+            <h2 class="accordion-header" id="headingTen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseOne">
+                10. 如何重置我的密碼？
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseTen" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>如果您忘記了密碼，請在登入頁面點擊“忘記密碼？”連結，然後根據提示輸入您的註冊郵箱。我們會向您發送一封重置密碼的郵件，您可以根據郵件中的指示重置您的密碼。
               </div>
             </div>
           </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-              </div>
-            </div>
-          </div>
+          
       </div>
     </div>
 
-    <!-- 有聯絡資訊、常見問題的footer -->
-    <div></div>
-    <footer>
-      <small> Copyright © 2024 Personal Liberary. All Rights Reserved. </small>
-    </footer>
+    <!-- footer -->
+    <div>
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <il class="nav-item"
+            ><a href="./personal_library_index.html" class="nav-link px-2 text-muted">首頁</a></il
+          >
+          <il class="nav-item"
+            ><a href="./個人書架.html" class="nav-link px-2 text-muted">我的書架</a></il
+          >
+          <il class="nav-item"
+            ><a href="./常見問題.html" class="nav-link px-2 text-muted">常見問題</a></il
+          >
+          <il class="nav-item"
+            ><a href="./贊助頁面.html" class="nav-link px-2 text-muted">贊助我們</a></il
+          >
+          <il class="nav-item"
+            ><a href="#" class="nav-link px-2 text-muted">聯絡我們</a></il
+          >
+        </ul>
+
+        <small>
+          Copyright © 2024 Personal Liberary. All Rights Reserved.
+        </small>
+      </footer>
+    </div>
     <script src="./bootstrap.bundle.js"></script>
   </body>
 </html>
