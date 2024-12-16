@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="icon" href="../img/主題標示.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title> 海：另一個未知的宇宙
+    </title>
+    
+  </head>
+  <body>
+    <!-- 頂部導覽列 -->
+    <nav
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+  style="background-color: #e3f2fd"
+>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">個人書庫</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="../personal_library_index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../贊助頁面.html">贊助我們</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                個人頁面
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./個人書架.html">我的書櫃</a>
+                </li>
+                <li><a class="dropdown-item" href="#">個人資料</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    >log in</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex mb-3">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="輸入作者、書名、ISBN"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 輸入登入訊息彈跳視窗 -->
+    <!-- 還須調整輸入完成後連結的頁面-個人書櫃 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">登入</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 登入表單 -->
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="email" class="form-label">電子郵件</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="輸入電子郵件"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="輸入密碼"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="rememberMe"
+                  name="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe">記住我</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">登入</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+            <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+    <!-- 書籍資訊區 -->
+    <main class="container my-5" >
+
+      <div class="row">
+         <!-- 書籍封面 -->
+          <!-- 放大比例時會重疊一部分 -->
+         <div class="col-lg-4">
+          <img
+            src="../img/書籍照片/海.webp"
+            alt="書籍封面"
+          />
+        </div>
+        <!-- 書籍詳細資訊 -->
+        <div class="col-lg-8 mt-3">
+          <h1>海：另一個未知的宇宙</h1>
+          <h5 style="color: gray">百萬小說《群》姊妹作【首創驚悚小說手法，刻畫45億年海洋史】</h5>
+          <h5 style="color: gray">Nachrichten aus einem unbekannten Universum: Eine Zeitreise durch die Meere</h5>
+          <hr />
+          <ul class="list-unstyled">
+            <li>
+             作&nbsp;者：
+              <a href="">  法蘭克．薛慶</a>
+            </li>
+            <li>
+              出&nbsp;版&nbsp;社：
+              <a href="">野人</a>
+            </li>
+            <li>出&nbsp;版&nbsp;日&nbsp;期： 2020/06/10</li>
+            <li>ISBN：9789863844273</li>
+          </ul>
+
+          <!-- 參考anobii -->
+          <!-- 第二個第三個下拉式選單失效，分別包在<div class="dropdown">中 -->
+          <div class="d-flex mt-4">
+            <div class="dropdown">
+              <button  type="button" class="btn btn-outline-secondary dropdown-toggle me-1" data-bs-toggle="dropdown">
+                    <span class="bi bi-plus">加至你的書籍</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><button class="dropdown-item"><i class="bi bi-bookshelf" style="color: gray;"></i>	&nbsp;加到書架</button></li>
+                <li><button class="dropdown-item"><i class="bi bi-bookmark-heart-fill" style="color: gray;"></i>	&nbsp;加到願望清單</button></li>
+              </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+                    分享
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+                </ul>
+            </div>
+                
+              <div class="dropdown">
+                  <button  type="button" class="btn btn-outline-secondary mx-1" data-bs-toggle="dropdown">
+                    ...
+                </button>
+                <!-- 設計彈出視窗，裡面為textarea -->
+                <ul  class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addNewNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;新增筆記</button>
+                  </li>
+                  
+                  <li>
+                    <button class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;撰寫評論</button>
+                  </li>
+                </ul>
+              </div>  
+          </div>
+
+          <!-- 新增筆記彈出視窗 -->
+          <div data-bs-backdrop="static" id="addNewNote" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><strong>新增筆記</strong>
+                        </h5>
+                        <!-- 打叉離開 -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6>筆記</h6>
+                        <textarea name="" id="wer" cols="45" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-outline-success">儲存</button>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新增評論彈出視窗 -->
+        <div data-bs-backdrop="static" id="addComment" class="modal" tabindex="-1">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title"><strong>撰寫評論</strong>
+                      </h5>
+                      <!-- 打叉離開 -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h6>評論</h6>
+                      <textarea name="" id="wer" cols="45" rows="10"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-outline-success">儲存</button>
+                   </div>
+              </div>
+          </div>
+      </div>
+
+          <div class="mt-5">
+            <h4 style="color: grey;">內容簡介：</h4>
+            <p class="mt-2">
+                <strong>
+                    It's not a novel, but it's still a thriller.<br>                   
+                    百萬小說《群》姐妹作！<br>
+                    首創驚悚小說手法，刻畫45億年海洋史><br>
+                </strong>
+                <br>
+                ★全國高中老師不分科 群推薦<br>
+                ★誠品暢銷榜TOP1<br>
+                ★博客來科普類TOP1<br>
+                ★金石堂文學榜TOP3<br>
+                <br>
+                寫完《群》之後，意猶未盡的薛慶，忍不住打開進化女神的手提包，<br>
+                先陪三葉蟲吃飯、看珊瑚蓋房子，又偷窺琵琶魚A片，<br>
+                一邊幫鯊魚貼上魚翅說明書，一邊還原《白鯨記》犯罪現場，<br>
+                令讀者再也分不清科普和小說的疆界！<br>
+                <br>
+                「昨天」清晨，下了一場傾盆大雨！<br>
+                <br>
+                沒有任何一家電視台有膽量播放這樣的天氣預報。大雨溫度超過攝氏300度，在100個大氣壓力下，水在這樣的高溫下才能凝結成雨。原始海洋出現了，但裡面沒有任何生命，沒有人能在那樣的海洋中游泳。大雨持續下著，持續了幾千年。<br>
+                <br>
+                「昨天」中午，優雅的進化女神拎著手提包出現。她的包包裡充滿了生命，單細胞生物開始占據海洋。由於她貪睡了30億年，進度嚴重落後，上帝不滿地抱怨：「我的訂單上寫著，寒武紀初期就該有霸王龍。什麼？妳才造出貝殼和蝸牛？還不快幹活去！」<br>
+                <br>
+                「昨天」下午，一群年輕時髦的藍綠藻，竟在光天化日下大肆繁殖，還到處亂扔氧氣。直到傍晚，原本對「性」不太感興趣的進化女神，為了讓地球免於「人口」爆炸的災難，不得不規定，有些生物不能使用細胞分裂的方式來繁殖，而必須兩兩相遇幽會，再共同製造下一代。<br>
+                <br>
+                飢腸轆轆的小三葉蟲發現了蠕蟲美食，正要享用大餐，忽然一個龐然大物從天而降，遮住它的視線，兩根魔爪鉗迎面伸來。但三葉蟲命不該絕，使盡各種花招，一再死裡逃生，安然活過了寒武紀、奧陶紀、志留紀……，撐到二曡紀，終於還是完蛋啦！<br>
+                <br>
+                進化女神愈來愈忙，她所訂的遊戲規則也愈來愈複雜，但無論如何，她總算趕在「今天」天亮前，把魚龍、龍王鯨、巨齒鯊和人類，都一一造了出來……<br>
+                <br>
+                愛海成癡的薛慶，以一貫創作驚悚小說的大膽手法、閒話家常的幽默筆調，細數海洋的古今大小事。全書以前天、昨天、今天、明天、後天為軸，帶領讀者搭乘時空客機，上天下地觀賞地球、海洋和人類文明發展的歷史故事，一路盡是「薛慶式」風趣淵博又發人深省的導覽解說：「『請把我碾成藥粉吧！』海藻背上的說明書應該這麼寫，『這樣就可以把我用在你的面膜、敷泥和沐浴乳中。』」「當鯊魚聽到人的慘叫聲時，牠知道獵物的痛苦嗎？還是牠們會把這種慘叫視為獵物新鮮的信號，就像我們把檸檬汁滴在牡蠣肉上，愜意地看著牠戰慄一樣？」薛慶說故事的才華在此書盡情揮灑，各種比喻和觀點出神入化，在在令人拍案叫絕！<br>
+            </p>
+                
+          </div>
+          
+        </div>
+      </div>
+      
+      
+
+    </main>
+
+    <!-- footer程式碼 -->
+    <div >
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <il class="nav-item"
+            ><a href="../personal_library_index.html" class="nav-link px-2 text-muted">首頁</a></il
+          >
+          <il class="nav-item"
+            ><a href="../個人書架.html" class="nav-link px-2 text-muted">我的書架</a></il
+          >
+          <il class="nav-item"
+            ><a href="../常見問題.html" class="nav-link px-2 text-muted">常見問題</a></il
+          >
+          <il class="nav-item"
+            ><a href="../贊助頁面.html" class="nav-link px-2 text-muted">贊助我們</a></il
+          >
+          <il class="nav-item"
+            ><a href="mailto:book1yummy2@gmail.com" class="nav-link px-2 text-muted">聯絡我們</a></il
+          >
+        </ul>
+
+        <small>
+          Copyright © 2024 Personal Liberary. All Rights Reserved.
+        </small>
+      </footer>
+    </div>
+
+    <script src="../bootstrap.bundle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="icon" href="../img/主題標示.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title> 夜鶯眼中的惡靈
+    </title>
+    
+  </head>
+  <body>
+    <!-- 頂部導覽列 -->
+    <nav
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+  style="background-color: #e3f2fd"
+>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">個人書庫</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="../personal_library_index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../贊助頁面.html">贊助我們</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                個人頁面
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./個人書架.html">我的書櫃</a>
+                </li>
+                <li><a class="dropdown-item" href="#">個人資料</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    >log in</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex mb-3">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="輸入作者、書名、ISBN"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 輸入登入訊息彈跳視窗 -->
+    <!-- 還須調整輸入完成後連結的頁面-個人書櫃 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">登入</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 登入表單 -->
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="email" class="form-label">電子郵件</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="輸入電子郵件"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="輸入密碼"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="rememberMe"
+                  name="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe">記住我</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">登入</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+            <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+    <!-- 書籍資訊區 -->
+    <main class="container my-5" >
+
+      <div class="row">
+         <!-- 書籍封面 -->
+          <!-- 放大比例時會重疊一部分 -->
+         <div class="col-lg-4">
+          <img
+            src="../img/書籍照片/夜鶯.webp"
+            alt="書籍封面"
+          />
+        </div>
+        <!-- 書籍詳細資訊 -->
+        <div class="col-lg-8 mt-3">
+          <h1>夜鶯眼中的惡靈</h1>
+          <h5 style="color: gray">A．S．拜厄特童話作品集</h5>
+          <h5 style="color: gray">The Djinn in the Nightingale’s Eye</h5>
+          <hr />
+          <ul class="list-unstyled">
+            <li>
+             作&nbsp;者：
+              <a href="">  A．S．拜厄特</a>
+            </li>
+            <li>
+              出&nbsp;版&nbsp;社：
+              <a href="">奇幻基地</a>
+            </li>
+            <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/07/04</li>
+            <li>ISBN：9786267436042</li>
+          </ul>
+
+          <!-- 參考anobii -->
+          <!-- 第二個第三個下拉式選單失效，分別包在<div class="dropdown">中 -->
+          <div class="d-flex mt-4">
+            <div class="dropdown">
+              <button  type="button" class="btn btn-outline-secondary dropdown-toggle me-1" data-bs-toggle="dropdown">
+                    <span class="bi bi-plus">加至你的書籍</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><button class="dropdown-item"><i class="bi bi-bookshelf" style="color: gray;"></i>	&nbsp;加到書架</button></li>
+                <li><button class="dropdown-item"><i class="bi bi-bookmark-heart-fill" style="color: gray;"></i>	&nbsp;加到願望清單</button></li>
+              </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+                    分享
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+                </ul>
+            </div>
+                
+              <div class="dropdown">
+                  <button  type="button" class="btn btn-outline-secondary mx-1" data-bs-toggle="dropdown">
+                    ...
+                </button>
+                <!-- 設計彈出視窗，裡面為textarea -->
+                <ul  class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addNewNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;新增筆記</button>
+                  </li>
+                  
+                  <li>
+                    <button class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;撰寫評論</button>
+                  </li>
+                </ul>
+              </div>  
+          </div>
+
+          <!-- 新增筆記彈出視窗 -->
+          <div data-bs-backdrop="static" id="addNewNote" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><strong>新增筆記</strong>
+                        </h5>
+                        <!-- 打叉離開 -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6>筆記</h6>
+                        <textarea name="" id="wer" cols="45" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-outline-success">儲存</button>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新增評論彈出視窗 -->
+        <div data-bs-backdrop="static" id="addComment" class="modal" tabindex="-1">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title"><strong>撰寫評論</strong>
+                      </h5>
+                      <!-- 打叉離開 -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h6>評論</h6>
+                      <textarea name="" id="wer" cols="45" rows="10"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-outline-success">儲存</button>
+                   </div>
+              </div>
+          </div>
+      </div>
+
+          <div class="mt-5">
+            <h4 style="color: grey;">內容簡介：</h4>
+            <p class="mt-2">
+                ★布克獎、伊拉斯謨獎、朴景利文学獎、安徒生文學獎　得主！<br>
+                ★戰後最偉大的英國作家之一　A．S．拜厄特經典之作！<br>
+                <br>
+                 <br>
+                ──電影《三千年的渴望》原著小說──<br>
+                《雷神索爾》守門人　伊卓瑞斯．艾巴<br>
+                《納尼亞傳奇》白女巫　蒂妲．史雲頓<br>
+                主演<br>
+                <br>
+                <br>
+                充滿哲學寓意、奇幻色彩的現代版暗黑童話故事<br>
+                一窺鄂圖曼六百年帝國風華！<br>
+                <br>
+                「從前從前……」<br>
+                故事中最不缺的就是悲劇女子，<br>
+                戀情受阻、遭父王或丈夫虐待、紅顏薄命……<br>
+                <br>
+                吉莉安慶幸她與這些慘事毫無關聯，<br>
+                她不再是母親，兒女皆已成年，<br>
+                也不是妻子或情婦，丈夫已跟其他女人私奔；<br>
+                她是名敘事學家，熟知拉丁文與古今中外的文學，<br>
+                此刻正享受空中旅行的樂趣──她是她自己。<br>
+                <br>
+                當她來到伊斯坦堡的市集，<br>
+                一只古雅的玻璃瓶吸引她的目光，裡頭竟住著一名精靈；<br>
+                精靈和她談起古往今來的祕密，與自己跟人類的戀情。<br>
+                <br>
+                語畢，精靈要吉莉安也說說自己的故事，<br>
+                且那段故事她從未向別人提過，專屬於精靈。<br>
+                吉利安只好挖出塵封已久、不堪回首的記憶……<br>
+                <br>
+                五篇震撼心靈的現代童話故事，<br>
+                如入迷人夢境，更發人深省，<br>
+                一窺布克獎得主、英國文學評論權威<br>
+                A．S．拜厄特的精巧傑作。<br>
+
+            </p>
+                
+          </div>
+          
+        </div>
+      </div>
+      
+      
+
+    </main>
+
+    <!-- footer程式碼 -->
+    <div >
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <il class="nav-item"
+            ><a href="../personal_library_index.html" class="nav-link px-2 text-muted">首頁</a></il
+          >
+          <il class="nav-item"
+            ><a href="../個人書架.html" class="nav-link px-2 text-muted">我的書架</a></il
+          >
+          <il class="nav-item"
+            ><a href="../常見問題.html" class="nav-link px-2 text-muted">常見問題</a></il
+          >
+          <il class="nav-item"
+            ><a href="../贊助頁面.html" class="nav-link px-2 text-muted">贊助我們</a></il
+          >
+          <il class="nav-item"
+            ><a href="mailto:book1yummy2@gmail.com" class="nav-link px-2 text-muted">聯絡我們</a></il
+          >
+        </ul>
+
+        <small>
+          Copyright © 2024 Personal Liberary. All Rights Reserved.
+        </small>
+      </footer>
+    </div>
+
+    <script src="../bootstrap.bundle.js"></script>
+  </body>
+</html>
