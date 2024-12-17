@@ -1,8 +1,5 @@
 <!-- 頂部導覽列 -->
-<nav
-  class="navbar navbar-expand-lg navbar-light fixed-top"
-  style="background-color: #e3f2fd"
->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">個人書庫</a>
     <button
@@ -22,12 +19,12 @@
           <a
             class="nav-link active"
             aria-current="page"
-            href="./personal_library_index.html"
+            href="../personal_library_index.html"
             >Home</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./贊助頁面.html">贊助我們</a>
+          <a class="nav-link" href="../贊助頁面.html">贊助我們</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -64,7 +61,9 @@
           placeholder="輸入作者、書名、ISBN"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
       </form>
     </div>
   </div>
@@ -122,7 +121,7 @@
               id="rememberMe"
               name="rememberMe"
             />
-            <label class="form-check-label">記住我</label>
+            <label class="form-check-label" for="rememberMe">記住我</label>
           </div>
           <button type="submit" class="btn btn-primary w-100">登入</button>
         </form>
@@ -131,7 +130,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           關閉
         </button>
-        <a href="" class="btn btn-link">忘記密碼?</a>
+        <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
       </div>
     </div>
   </div>

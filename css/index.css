@@ -2,10 +2,24 @@ body {
   background-color: #f7f7f7;
 }
 
+nav {
+  background-color: #9dc3c1;
+}
+
 /* footer樣式 */
 footer {
   text-align: center;
   padding: 5px;
-  background-color: #abbaba;
-  color: #000;
+  background-color: #77aaad;
+  color: #6e7783;
+}
+
+.bookStyle {
+  color: black;
+  text-decoration: none;
+}
+
+.bookStyle:hover {
+  color: black;
+  text-decoration: none;
 }
