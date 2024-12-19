@@ -91,7 +91,7 @@
       </div>
       <div class="modal-body">
         <!-- 登入表單 -->
-        <form action="/login" method="POST">
+        <form id="loginForm">
           <div class="mb-3">
             <label for="email" class="form-label">電子郵件</label>
             <input
@@ -123,14 +123,16 @@
             />
             <label class="form-check-label" for="rememberMe">記住我</label>
           </div>
-          <button type="submit" class="btn btn-primary w-100">登入</button>
+          <button type="submit" class="btn btn-primary w-100" id="enterP">
+            登入
+          </button>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           關閉
         </button>
-        <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+        <a href="#" class="btn btn-link">忘記密碼?</a>
       </div>
     </div>
   </div>

@@ -58,7 +58,7 @@
                 <li>
                   <a class="dropdown-item" href="../個人書架.html">我的書櫃</a>
                 </li>
-                <li><a class="dropdown-item" href="#">個人資料</a></li>
+                <li><a class="dropdown-item" href="../個人資料.html">個人資料</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                   <a
@@ -108,7 +108,7 @@
           </div>
           <div class="modal-body">
             <!-- 登入表單 -->
-            <form action="/login" method="POST">
+            <form id="loginForm">
               <div class="mb-3">
                 <label for="email" class="form-label">電子郵件</label>
                 <input
@@ -140,7 +140,9 @@
                 />
                 <label class="form-check-label" for="rememberMe">記住我</label>
               </div>
-              <button type="submit" class="btn btn-primary w-100">登入</button>
+              <button type="submit" class="btn btn-primary w-100" id="enterP">
+                登入
+              </button>
             </form>
           </div>
           <div class="modal-footer">
@@ -151,7 +153,7 @@
             >
               關閉
             </button>
-            <a href="/forgot-password" class="btn btn-link">忘記密碼?</a>
+            <a href="#" class="btn btn-link">忘記密碼?</a>
           </div>
         </div>
       </div>
@@ -334,5 +336,16 @@
     </div>
 
     <script src="../bootstrap.bundle.js"></script>
+    <!-- 控制導向個人頁面 -->
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // 阻止表單的預設提交行為
+
+          // 成功後，跳轉到指定的頁面
+          window.location.href = "../個人資料.html"; // 替換為你自訂的頁面 URL
+        });
+    </script>
   </body>
 </html>

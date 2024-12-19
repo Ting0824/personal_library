@@ -137,6 +137,13 @@
 
     <!-- 側邊導覽列 -->
     <div class="sidebar list-group-flush text-center" id="sidebar">
+      <a href="./個人資料.html"
+        ><img
+          src="./img/會員頭貼.png"
+          class="rounded-circle"
+          style="width: 120px"
+      /></a>
+
       <a
         href="./personal_library_index.html"
         class="list-group-item list-group-item-action"
@@ -162,9 +169,7 @@
           >產品 3</a
         >
       </div>
-      <a href="">閱讀紀錄</a>
       <a href="">收藏</a>
-      <a href="./個人資料.html">個人頁面</a>
     </div>
 
     <!-- 主要內容區域 -->
@@ -176,7 +181,7 @@
         <button class="btn border-0"><h3 class="bi bi-funnel"></h3></button>
       </div>
       <!-- 書櫃內容 -->
-      <div class="row row-cols-1 row-cols-md-6 g-4">
+      <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4">
         <div class="col">
           <div class="h-100">
             <a href="./書籍頁面/侑美與夢贗繪師.html" class="bookStyle">
@@ -240,8 +245,8 @@
                 >
               </div>
             </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html">
-              布蘭登．山德森</a
+            <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html"
+              >布蘭登．山德森</a
             ><br />
             <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
               奇幻基地</a
@@ -358,7 +363,7 @@
               法蘭克．薛慶</a
             ><br />
             <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">
-              野人出版</a
+              野人文化</a
             >
           </div>
         </div>
@@ -410,9 +415,84 @@
             >
           </div>
         </div>
+        <div class="col" id="newBookHome"></div>
       </div>
     </div>
 
+    <!-- 自行添加書籍功能 -->
+    <div class="text-end m-5">
+      <button
+        class="btn border-0"
+        style="font-size: 64px"
+        data-bs-toggle="modal"
+        data-bs-target="#addNewBook"
+      >
+        <i class="bi bi-patch-plus-fill"></i>
+      </button>
+    </div>
+
+    <!-- 輸入書籍資訊視窗 -->
+    <div data-bs-backdrop="static" id="addNewBook" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><strong>新增書籍</strong></h5>
+            <!-- 打叉離開 -->
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <label for="addBookName">書名：</label>
+              <br />
+              <input type="text" name="" id="addBookName" /><br /><br />
+            </div>
+            <div>
+              <label for="addAuthorName">作者：</label><br />
+              <input type="text" name="" id="addAuthorName" /><br /><br />
+            </div>
+            <div>
+              <label for="addPublishingHouse">出版社：</label><br />
+              <input type="text" name="" id="addPublishingHouse" /><br /><br />
+            </div>
+            <div>
+              <label for="addPublishDate">出版日期：</label><br />
+              <input type="date" name="" id="addPublishDate" /><br /><br />
+            </div>
+            <div>
+              <label for="addISBN">ISBN：</label><br />
+              <input type="text" id="addISBN" /><br /><br />
+            </div>
+
+            <div>
+              <label for="addBookImg">添加書籍圖片：</label><br />
+              <input type="file" name="" id="addBookImg" /><br /><br />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              id="saveNewBook"
+            >
+              儲存
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- footer -->
     <div>
       <footer class="py-3 my-4">
@@ -465,6 +545,24 @@
       // 點擊漢堡按鈕時控制頂端導航欄的顯示與隱藏
       navbarTogglerBtn.addEventListener("click", function () {
         navbarCollapse.classList.toggle("show");
+      });
+
+      // 當輸入特定ISBN並點選儲存會新增一個新書頁面在版面上
+      let clickAdd = document.querySelector("#saveNewBook");
+      let addNew = document.querySelector("#newBookHome");
+      var addNewBookModal = new bootstrap.Modal(
+        document.getElementById("addNewBook")
+      );
+      clickAdd.addEventListener("click", () => {
+        addNew.innerHTML = `
+        <div class="h-100">
+            <a href="./書籍頁面/城市隱形設計.html" class="bookStyle"><img  src="./img/書籍照片/城市.jpg" class="card-img-top img-fluid mt-3 " alt="..." /><div class="card-body"><strong><h5 class="card-title ps-4 mt-2">99%隱形的城市日常設計</h5></strong></div>
+            <a href="../作者頁面/羅曼．馬斯.html" class="card-body ps-4 pt-5">羅曼．馬斯 </a><br/>
+            <a href="../作者頁面/柯特．科爾斯泰特.html" class="card-body ps-4 pt-5">柯特．科爾斯泰特</a>
+            <br />
+            <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">野人文化</a>
+        </div>`;
+        addNewBookModal.hide();
       });
     </script>
   </body>
