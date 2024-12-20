@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>個人書架</title>
     <!-- 引入 Bootstrap 5 的 CSS -->
-    <link rel="stylesheet" href="./css/bootstrap.css" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/index.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link rel="icon" href="./img/主題標示.png" />
+    <link rel="icon" href="../img/主題標示.png" />
 
     <style>
       /* 讓側邊導覽列的寬度固定 */
@@ -102,11 +102,75 @@
           margin-left: 250px;
         }
       }
+
+      /* 讓書籍圖片移動 */
+      .card-img-top:hover {
+        transform: translateY(-10px);
+      }
+
+
+        /* 書籍資訊彈跳遮罩層 */
+        .bookModal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      /* 書籍資訊彈跳視窗內容 */
+      .modalContent {
+        background-color: white;
+            margin: 0 auto;  /* 水平居中 */
+            position: fixed;
+            top: 50%;  /* 垂直居中 */
+            left: 50%;  /* 垂直居中 */
+            transform: translate(-50%, -50%);  /* 使彈跳視窗精確置中 */
+            padding: 0;  /* 移除 padding，讓內部滾動區域有 padding */
+            border-radius: 8px;
+            width: 80%;  /* 預設寬度是 80% */
+            max-width: 600px;  /* 最大寬度不超過 600px */
+            max-height: 80vh;  /* 最大高度不超過 80% 的螢幕高度 */
+            overflow: auto;  /* 防止滾動條影響圓角 */
+      }
+
+      .modal-content-inner {
+            padding: 20px;
+            max-height: 80vh;
+            overflow-y: auto;  /* 在內部實現滾動效果 */
+        }
+
+      .closeBtn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .closeBtn:hover,
+      .closeBtn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      @media (max-width: 600px) {
+            .modalContent {
+                width: 90%;  /* 更小螢幕時視窗寬度為 90% */
+                padding: 10px;  /* 內邊距縮小 */
+            }
+
+        }
+
     </style>
   </head>
   <body>
     <!-- 頂部導航欄 -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light p-3">
       <!-- 漢堡按鈕，用來控制頂端導覽列的顯示 -->
       <button
         class="navbar-toggler ms-2"
@@ -118,7 +182,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse mt-2" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item ms-2">
             <a class="nav-link active" href="./personal_library_index.html"
@@ -160,13 +224,13 @@
       </a>
       <div class="collapse" id="submenu1">
         <a href="#" class="list-group-item list-group-item-action ps-4"
-          >產品 1</a
+          >全部書籍</a
         >
         <a href="#" class="list-group-item list-group-item-action ps-4"
-          >產品 2</a
+          >小說</a
         >
         <a href="#" class="list-group-item list-group-item-action ps-4"
-          >產品 3</a
+          >歷史</a
         >
       </div>
       <a href="">收藏</a>
@@ -175,251 +239,284 @@
     <!-- 主要內容區域 -->
     <div class="main-content">
       <h1>歡迎回來線上書櫃</h1>
-      <p>在這裡你可以管理你的書籍，並自訂你的書櫃設置。</p>
-      <!-- 書櫃樣式改為顯示圖片和書名而已，點擊卡片進入書籍頁面 -->
-      <div class="text-end">
-        <button class="btn border-0"><h3 class="bi bi-funnel"></h3></button>
-      </div>
+      <br>
+      <h5>在這裡你可以管理你的書籍，並自訂你的書櫃設置。</h5>
+
+      <hr>
+      <!-- 篩選及排序 -->
+    <div class="d-flex">
+        <!-- filter標示 -->
+      <div class="dropdown">
+        <button class="btn border-0" data-bs-toggle="dropdown">
+          <i class=" bi bi-funnel" style="font-size: 20px;"></i>
+          <span style="font-size: 20px;">篩選</span>
+        </button>
+        
+      <ul  class="dropdown-menu">
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addNewNote"><i class="bi bi-book-fill" style="color: gray;"></i>&nbsp;閱讀完畢</button>
+        </li>
+        
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-book" style="color: gray;"></i></i>&nbsp;尚未閱讀</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-journal" style="color: gray;"></i></i>&nbsp;文學小說</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-brush-fill" style="color: gray;"></i></i>&nbsp;藝術設計</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-person-fill" style="color: gray;"></i></i>&nbsp;人文社科</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-heart-fill" style="color: gray;"></i></i>&nbsp;心理勵志</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-tree-fill" style="color: gray;"></i></i>&nbsp;自然科普</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-cup-hot-fill" style="color: gray;"></i></i>&nbsp;生活風格</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-airplane-fill" style="color: gray;"></i></i>&nbsp;旅遊</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-backpack3-fill" style="color: gray;"></i></i>&nbsp;童書/青少年文學</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-palette-fill" style="color: gray;"></i></i>&nbsp;漫畫/圖文書</button>
+        </li>
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-laptop-fill" style="color: gray;"></i></i>&nbsp;電腦資訊</button>
+        </li>
+      </ul>
+      </div> 
+       <!--排序  -->
+      <div class="dropdown">
+        <button class="btn border-0" data-bs-toggle="dropdown">
+          <i class=" bi bi-filter" style="font-size: 20px;"></i>
+          <span style="font-size: 20px;">排序</span>
+        </button>
+        
+      <ul  class="dropdown-menu">
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addNewNote"><i class="bi bi-sort-down" style="color: gray;"></i>&nbsp;出版日期遠到近</button>
+        </li>
+        
+        <li>
+          <button class="dropdown-item"
+          data-bs-toggle="modal"
+          data-bs-target="#addComment"><i class="bi bi-sort-up" style="color: gray;"></i></i>&nbsp;出版日期近到遠</button>
+        </li>
+      </ul>
+      </div>  
+    </div>
+      <br>
+
       <!-- 書櫃內容 -->
       <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4">
+       <!-- 單本書樣式 -->
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/侑美與夢贗繪師.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/侑美與夢魘繪師.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">侑美與夢魘繪師</h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html">
-              布蘭登．山德森</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
-              奇幻基地</a
-            >
+            <img src="./img/書籍照片/侑美與夢魘繪師.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover1">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">侑美與夢魘繪師</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html">
+                布蘭登．山德森</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
+                奇幻基地</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/翠海的雀絲.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/翠海.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">翠海的雀絲</h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html">
-              布蘭登．山德森</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
-              奇幻基地</a
-            >
+            <img src="./img/書籍照片/翠海.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover2">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">翠海的雀絲</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html">
+                布蘭登．山德森</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
+                奇幻基地</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a
-              href="./書籍頁面/勤儉魔法師的中古英格蘭生存指南.html"
-              class="bookStyle"
-            >
-              <img
-                src="./img/書籍照片/勤儉魔法師.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">
-                    勤儉魔法師的中古英格蘭生存指南
-                  </h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html"
+            <img src="./img/書籍照片/勤儉魔法師.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover3">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">勤儉魔法師的中古英格蘭生存指南</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/布蘭登.山德森.html"
               >布蘭登．山德森</a
             ><br />
             <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
               奇幻基地</a
             >
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/夜鶯中的惡靈.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/夜鶯.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">夜鶯眼中的惡靈</h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/A．S．拜厄特.html">
-              A．S．拜厄特</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
-              奇幻基地</a
-            >
+            <img src="./img/書籍照片/夜鶯.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover4">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">夜鶯眼中的惡靈</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/A．S．拜厄特.html">
+                A．S．拜厄特</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/奇幻基地.html">
+                奇幻基地</a
+              >
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="h-100">
+            <img src="/img/書籍照片/母樹.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover5">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">尋找母樹</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/蘇珊_希瑪爾.html">
+                蘇珊‧希瑪爾</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/大塊文化.html">
+                大塊文化</a
+              >
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/尋找母樹.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/母樹.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong><h5 class="card-title ps-4 mt-2">尋找母樹</h5></strong>
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/蘇珊_希瑪爾.html">
-              蘇珊‧希瑪爾</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/大塊文化.html">
-              大塊文化</a
-            >
+            <img src="./img/書籍照片/貓走過的近現代.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover6">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">貓走過的近現代</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/真邊將之.html">
+                真邊將之</a
+              >
+              <br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/台灣商務.html">
+                臺灣商務</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/貓走過的近現代.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/貓走過的近現代.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">貓走過的近現代</h5></strong
-                >
-              </div>
-            </a>
-            <!-- 點選地方跑掉 -->
-            <a class="card-body ps-4 pt-5" href="./作者頁面/真邊將之.html">
-              真邊將之</a
-            >
-            <br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/台灣商務.html">
-              臺灣商務</a
-            >
+            <img src="./img/書籍照片/規則.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover7">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">我們賴以為生的規則</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/洛琳_達斯頓.html">
+                洛琳‧達斯頓</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/台灣商務.html">
+                臺灣商務</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/我們賴以為生的規則.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/規則.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">
-                    我們賴以為生的規則
-                  </h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/洛琳_達斯頓.html">
-              洛琳‧達斯頓</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/台灣商務.html">
-              臺灣商務</a
-            >
+            <img src="./img/書籍照片/海.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover8">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">海：另一個未知的宇宙</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/法蘭克_薛慶.html">
+                法蘭克．薛慶</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">
+                野人文化</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/海，另一個未知的宇宙.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/海.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">
-                    海：另一個未知的宇宙
-                  </h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/法蘭克_薛慶.html">
-              法蘭克．薛慶</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">
-              野人文化</a
-            >
+            <img src="./img/書籍照片/特搜.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover9">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">特搜！臺灣都市傳說</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/謝宜安.html">
+                謝宜安</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/蓋亞.html">
+                蓋亞</a
+              >
+            </div>
           </div>
+
         </div>
         <div class="col">
           <div class="h-100">
-            <a href="./書籍頁面/特搜！臺灣都市傳說.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/特搜.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">
-                    特搜！臺灣都市傳說
-                  </h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/謝宜安.html">
-              謝宜安</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/蓋亞.html">
-              蓋亞</a
-            >
+            <img src="./img/書籍照片/校園鬼故事.png" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover10">
+            <div class="card-body">
+              <strong>
+                <h5 class="card-title ps-4 mt-2">必修！臺灣校園鬼故事考</h5>
+              </strong>
+              <a class="card-body ps-4 pt-5" href="./作者頁面/謝宜安.html">
+                謝宜安</a
+              ><br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/蓋亞.html">
+                蓋亞</a
+              >
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="h-100">
-            <a href="./書籍頁面/必修!台灣鬼故事考.html" class="bookStyle">
-              <img
-                src="./img/書籍照片/校園鬼故事.png"
-                class="card-img-top img-fluid mt-3"
-                alt="..."
-              />
-              <div class="card-body">
-                <strong
-                  ><h5 class="card-title ps-4 mt-2">
-                    必修！臺灣校園鬼故事考
-                  </h5></strong
-                >
-              </div>
-            </a>
-            <a class="card-body ps-4 pt-5" href="./作者頁面/謝宜安.html">
-              謝宜安</a
-            ><br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/蓋亞.html">
-              蓋亞</a
-            >
-          </div>
+
         </div>
         <div class="col" id="newBookHome"></div>
       </div>
     </div>
 
-    <!-- 自行添加書籍功能 -->
+   <!-- 自行添加書籍功能按鈕 -->
     <div class="text-end m-5">
       <button
         class="btn border-0"
@@ -430,7 +527,6 @@
         <i class="bi bi-patch-plus-fill"></i>
       </button>
     </div>
-
     <!-- 輸入書籍資訊視窗 -->
     <div data-bs-backdrop="static" id="addNewBook" class="modal" tabindex="-1">
       <div class="modal-dialog">
@@ -483,18 +579,1016 @@
               取消
             </button>
             <button
-              type="button"
-              class="btn btn-outline-success"
-              id="saveNewBook"
+            type="button"
+            class="btn btn-outline-success"
+            id="saveNewBook"
             >
-              儲存
-            </button>
-          </div>
+            儲存
+          </button>
         </div>
       </div>
     </div>
-    <!-- footer -->
+  </div>
+
+  <!-- 書籍內容彈出視窗 侑美與夢魘繪師-->
+<div id="bookModal1" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn" id="closebtn1">&times;</span></div>
+      <div>
+        <!-- 書籍封面 -->
+        <img src="./img/書籍照片/侑美與夢魘繪師2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>
+        侑美與夢魘繪師</h1>
+      <h5 style="color: gray">邪惡奇幻天才大神超凡驚豔震撼全球祕密計畫</h5>
+      <h5 style="color: gray">Yumi and the Nightmare Painter</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+         作&nbsp;者：
+         <a href="../作者頁面/布蘭登.山德森.html" class="link-secondary">  布蘭登．山德森</a>
+        </li>
+        <li>
+          出&nbsp;版&nbsp;社：
+          <a href="../出版社頁面/奇幻基地.html" class="link-secondary">奇幻基地</a>
+        </li>
+        <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/08/06</li>
+        <li>ISBN：9786267436394</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook1Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook1Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          轟動全球出版界，創下前所未有書市奇蹟作品！<br>
+                Kickstarter集資平臺史上破四千萬美金高標紀錄！<br>
+                <br>
+                CNN、CNBC、CBS、USA TODAY、衛報、紐約時報爭相報導<br>
+                <br>
+                雨果獎得主布蘭登．山德森<br>
+                <br>
+                超凡驚豔震撼全球祕密計畫<br>
+                <br>
+                ★★<br>
+                <br>
+                寫作靈感來自新海誠超人氣動漫《你的名字》，<br>
+                <br>
+                密布東方文化意涵的傑出代表作！<br>
+                <br>
+                ★★<br>
+                <br>
+                侑美一生都恪守本分，嚴格服從她被賦予的能力——召喚神靈——為社會提供重要幫助。<br>
+                但她暗自渴望有一天能活得像個正常人。<br>
+                <br>
+                繪師總是在黑暗的街道上梭巡徘徊，夢想有一天能成為英雄——但這個目標除了心痛和孤寂之外，什麼也沒有留給他。<br>
+                <br>
+                壓抑自我的侑美和無人理解的繪師因莫名的力量而交換身分，他們必須努力糾正迎面而來的錯誤和混亂，<br>
+                同時不被人發現這個祕密。<br>
+                <br>
+                如果兩人不能在為時已晚之前解開將他們聯繫在一起的謎團，不僅有可能失去他們拚命努力保護的世界，<br>
+                更可能永遠失去彼此之間的命運羈絆……<br>
+        </p>
+    </div>
+   </div>
+  </div>
+</div>
+
+  <!-- 書籍內容彈出視窗 翠海的雀絲-->
+<div id="bookModal2" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn">&times;</span></div>
+      <div>
+        <!-- 書籍封面 -->
+        <img src="./img/書籍照片/翠海2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>
+        翠海的雀絲</h1>
+      <h5 style="color: gray">邪惡奇幻天才大神超凡驚豔震撼全球祕密計畫</h5>
+      <h5 style="color: gray">Tress of the Emerald Sea</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+         作&nbsp;者：
+         <a href="../作者頁面/布蘭登.山德森.html" class="link-secondary">  布蘭登．山德森</a>
+        </li>
+        <li>
+          出&nbsp;版&nbsp;社：
+          <a href="../出版社頁面/奇幻基地.html" class="link-secondary">奇幻基地</a>
+        </li>
+        <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/02/29</li>
+        <li>ISBN：9786267436004</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          轟動全球出版界，創下前所未有書市奇蹟作品！<br>
+          Kickstarter集資平臺史上破四千萬美金高標紀錄！<br>
+          CNN、CNBC、CBS、USA TODAY、衛報、紐約時報爭相報導<br>
+          奇幻邪惡天才大神、雨果獎得主布蘭登．山德森超凡驚豔祕密計畫<br>
+          <hr>
+          
+          一趟新娘不是公主卻乘風破浪拯救王子的奇幻魔法冒險大航海之旅！<br>
+          <br>
+          在碧綠海洋小島上過著簡單生活的雀絲，她的快樂來源就是收集水手從遙遠的地方帶回來的各式美麗杯子，
+          以及聽聽心上人查理為她講述的每一個故事。<br>
+          <br>
+          然而，當查理的公爵父親宣布要舉家揚帆出海，尋找查理未來的新娘卻遇難時，
+          雀絲下定決心違背國王的禁制離島命令，偷偷登上一艘船，出發尋找致命的子夜海魔女巢穴，拯救她此生摯愛。<br>
+          <br>
+          在這個海盜橫行、無比凶險又奇特的孢子海洋上，只要一點點水就會致命，
+          雀絲遇上一生從所未見的奇異生物和魔法事件，她能否在茫茫航行中，找到自己的正確方向？</p>
+    </div>
+   </div>
+  </div>
+</div>
+
+  <!-- 書籍內容彈出視窗 勤儉魔法師的中古英格蘭生存指南-->
+<div id="bookModal3" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn">&times;</span></div>
+      <div>
+        <!-- 書籍封面 -->
+        <img src="./img/書籍照片/勤儉魔法師2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>
+        勤儉魔法師的中古英格蘭生存指南</h1>
+      <h5 style="color: gray">邪惡奇幻天才大神超凡驚豔震撼全球祕密計畫</h5>
+      <h5 style="color: gray">The Frugal Wizard’s Handbook for Surviving Medieval England</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+         作&nbsp;者：
+         <a href="../作者頁面/布蘭登.山德森.html" class="link-secondary">  布蘭登．山德森</a>
+        </li>
+        <li>
+          出&nbsp;版&nbsp;社：
+          <a href="../出版社頁面/奇幻基地.html" class="link-secondary">奇幻基地</a>
+        </li>
+        <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/05/16</li>
+        <li>ISBN：9786267436066</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          轟動全球出版界，創下前所未有書市奇蹟作品！<br>
+              Kickstarter集資平臺史上破四千萬美金高標紀錄！<br>
+              CNN、CNBC、CBS、USA TODAY、衛報、紐約時報爭相報導<br>
+              <br>
+              雨果獎得主布蘭登．山德森<br>
+              超凡驚豔震撼全球祕密計畫<br>
+              <br>
+              //<br>
+              大玩後設元素，科幻X奇幻的完美融合<br>
+              宛如《神鬼認證》的緊張追逐、史詩奇幻和時空旅行冒險一次滿足！<br>
+              //<br>
+              <br>
+              男人在中世紀英格蘭的空地上醒來，不記得自己是誰，從哪裡來，為什麼會在那裡。<br>
+              在被一群來自他那個時代的人追趕同時，男人唯一的生還希望就是要恢復自己丟失的記憶！<br>
+              他得到的唯一幫助，是一本名為《勤儉魔法師的中古英格蘭生存指南》的手冊，但那本書卻在傳送途中爆炸了？！<br>
+              他設法保存住一些書籍碎片，為自己的處境摸索出線索，但他能及時弄清這些謎團，並活下來嗎？<br>
+              <br>
+              次元穿越的技術細節十分龐雜，建議各位不必費心鑽研。<br>
+              麻煩就交給勤儉魔法師股份有限公司®來處理吧！<br>
+              <br>
+              ★法律免責聲明★<br>
+              各次元皆有獨自風險，旅者須自負其責。<br>
+
+            </p>
+    </div>
+   </div>
+  </div>
+</div>
+
+  <!-- 書籍內容彈出視窗 夜鶯眼中的惡靈-->
+<div id="bookModal4" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn">&times;</span></div>
+      <div>
+        <!-- 書籍封面 -->
+        <img src="./img/書籍照片/夜鶯2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>夜鶯眼中的惡靈</h1>
+      <h5 style="color: gray">A．S．拜厄特童話作品集</h5>
+      <h5 style="color: gray">The Djinn in the Nightingale’s Eye</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          作&nbsp;者：
+           <a href="../作者頁面/A．S．拜厄特.html" class="link-secondary">  A．S．拜厄特</a>
+         </li>
+         <li>
+           出&nbsp;版&nbsp;社：
+           <a href="../出版社頁面/奇幻基地.html" class="link-secondary">奇幻基地</a>
+         </li>
+         <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/07/04</li>
+         <li>ISBN：9786267436042</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          ★布克獎、伊拉斯謨獎、朴景利文学獎、安徒生文學獎　得主！<br>
+                ★戰後最偉大的英國作家之一　A．S．拜厄特經典之作！<br>
+                <br>
+                 <br>
+                ──電影《三千年的渴望》原著小說──<br>
+                《雷神索爾》守門人　伊卓瑞斯．艾巴<br>
+                《納尼亞傳奇》白女巫　蒂妲．史雲頓<br>
+                主演<br>
+                <br>
+                <br>
+                充滿哲學寓意、奇幻色彩的現代版暗黑童話故事<br>
+                一窺鄂圖曼六百年帝國風華！<br>
+                <br>
+                「從前從前……」<br>
+                故事中最不缺的就是悲劇女子，<br>
+                戀情受阻、遭父王或丈夫虐待、紅顏薄命……<br>
+                <br>
+                吉莉安慶幸她與這些慘事毫無關聯，<br>
+                她不再是母親，兒女皆已成年，<br>
+                也不是妻子或情婦，丈夫已跟其他女人私奔；<br>
+                她是名敘事學家，熟知拉丁文與古今中外的文學，<br>
+                此刻正享受空中旅行的樂趣──她是她自己。<br>
+                <br>
+                當她來到伊斯坦堡的市集，<br>
+                一只古雅的玻璃瓶吸引她的目光，裡頭竟住著一名精靈；<br>
+                精靈和她談起古往今來的祕密，與自己跟人類的戀情。<br>
+                <br>
+                語畢，精靈要吉莉安也說說自己的故事，<br>
+                且那段故事她從未向別人提過，專屬於精靈。<br>
+                吉利安只好挖出塵封已久、不堪回首的記憶……<br>
+                <br>
+                五篇震撼心靈的現代童話故事，<br>
+                如入迷人夢境，更發人深省，<br>
+                一窺布克獎得主、英國文學評論權威<br>
+                A．S．拜厄特的精巧傑作。<br>
+
+            </p>
+    </div>
+   </div>
+  </div>
+</div>
+
+  <!-- 書籍內容彈出視窗 尋找母樹-->
+<div id="bookModal5" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn">&times;</span></div>
+     <!-- 書籍封面 -->
+      <div>
+        <img src="./img/書籍照片/母樹2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>尋找母樹</h1>
+      <h5 style="color: gray">Finding the Mother Tree: Discovering the Wisdom of the Forest</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          作&nbsp;者：
+           <a href="../作者頁面/蘇珊_希瑪爾.html" class="link-secondary"> 蘇珊‧希瑪爾</a>
+         </li>
+         <li>
+           出&nbsp;版&nbsp;社：
+           <a href="../出版社頁面/大塊文化.html" class="link-secondary">大塊文化</a>
+         </li>
+         <li>出&nbsp;版&nbsp;日&nbsp;期： 2022/04/29</li>
+         <li>ISBN：9786267118269</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          <strong>
+            ｛植物之間也能溝通並對話？｝<br>
+              阿凡達電影裡的「靈魂之樹」都是真的──<br>
+              跟動物一樣，樹木之間也有溝通的網路。<br>
+              出身伐木家族的森林生態學家，<br>
+              以三十年光陰，在密林幽徑中穿梭尋覓，<br>
+              解開林木之間傳遞散布的百年密語。<br>
+              【以人生境遇書寫的森林故事】<br>
+            </strong>
+              <br>
+              <br>
+              ◆本書賣點<br>
+              ●蘇珊‧希瑪爾是研究植物溝通與智慧領域的先鋒。外界將她與自然寫作先驅、《寂靜的春天》的作者瑞秋‧卡森相提並論。她的研究更影響了電影界（《阿凡達》的靈魂之樹）。<br>
+              <br>
+              ●作者窮極一生探究樹木生長的祕密，她的生命與森林已經密不可分。這本自然觀察／人生回憶錄，不僅奠基於長年的實驗、觀察、研究結果，也蘊藏可貴的生命遭遇。<br>
+              <br>
+              ◆內容簡介<br>
+              ★作者希瑪爾相關主題的TED演說，全球已超過百萬次觀看。<br>
+              ★《雜食者的兩難》作者麥可．波倫、《金雲杉：神話，瘋狂和貪婪的真實故事》作者約翰‧維揚一致推薦。<br>
+              ★《華爾街日報》年度十大好書、《時代週刊》年度好書、《華盛頓郵報》年度好書<br>
+              <br>
+              蘇珊‧希瑪爾是發現植物具有智慧且會互相交流的科學先鋒，地位可比當年點燃全球環保意識的瑞秋‧卡森（Rachel Carson）。她以深刻動人的方式傳達了複雜而專業的森林學概念，其作品不僅影響當代電影導演（《阿凡達》中的「靈魂之樹」），她在TED的演說在全球也累積了千萬點閱率。<br>
+              <br>
+              這本書是她的第一本著作。作者帶我們走入她的世界，一窺樹木之間的緊密連結，並精彩生動地闡述一個無比重要又迷人的事實：樹木不只是木材或紙漿的來源，同時也是一個錯綜複雜、互相依賴的生命共同體。森林就是一個互助合作的社會，裡頭的生物透過地下網路與彼此相連。而樹木透過地下網路，把自己的長處和弱點與群落的其他成員分享，其實跟人類並無不同。<br>
+              <br>
+              作者以平易近人、發人省思又激勵人心的筆觸，寫下樹木幾百年來如何相依為命，共同演化、彼此感應，學習並調整自己的行為，辨別鄰居；記取歷史，面對未來；發出警告，豎起防衛，以複雜的方式相互競爭和合作——種種通常會歸於人類智慧或公民社會精神的特質。而母樹，就是這一切往來互動的中樞，連結也支援周圍所有的生物，形成一股強大而神祕的力量。<br>
+              <br>
+              除了寫森林，希瑪爾也寫下自己的生命史。從小在加拿大卑詩省的雨林長大，家裡從事伐木工作，童年常在森林裡認識樹木，也學會如何愛樹木、尊重樹木。長大之後，她踏上一段發現之旅，也為此陷入痛苦掙扎。一邊是一路走來的科學探索，一邊是有關愛與失去、觀察和改變、危險和回報的人生旅程。在在讓我們瞭解人類的科學探索遠遠超過數據和技術的層面，真正的目的是瞭解自己是誰與我們在這世界的位置。透過作者的生命史，我們發現母樹用來滋養森林的連結網，正如同凝聚人類的家庭和社會，而這種難分難捨的連結，正是世界萬物得以存活的關鍵。<br>
+        </p>
+    </div>
+   </div>
+  </div>
+</div>
+
+  <!-- 書籍內容彈出視窗 貓走過的近現代-->
+<div id="bookModal6" class="bookModal" tabindex="-1">
+  <div class="modalContent">
+    <!-- 內容 -->
+    <div class="modal-content-inner">
+     <!-- 打叉離開 --> 
+     <div><span class="closeBtn">&times;</span></div>
+     <!-- 書籍封面 -->
+      <div>
+        <img src="./img/書籍照片/貓走過的近現代2.png" alt="">
+       </div>
+       <br>
+       <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+       <div>
+      <h1>貓走過的近現代</h1>
+      <h5 style="color: gray">歷史學家帶你一窺日本人與貓的愛恨情仇！</h5>
+      <h5 style="color: gray">貓が歩いた近現代──化け貓が家族になるまで</h5>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          作&nbsp;者：
+           <a href="../作者頁面/真邊將之.html" class="link-secondary"> 真邊將之</a>
+         </li>
+         <li>
+           出&nbsp;版&nbsp;社：
+           <a href="../出版社頁面/台灣商務.html" class="link-secondary">臺灣商務</a>
+         </li>
+         <li>出&nbsp;版&nbsp;日&nbsp;期： 2023/06/15</li>
+         <li>ISBN：9789570534955</li>
+      </ul>
+       </div>
+       <!-- 分享及心得填寫按鈕 -->
+     <div class="d-flex">
+      <div class="dropdown">
+        <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+            分享
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+        </ul>
+      </div>
+      <!-- 設計彈出視窗，裡面為textarea -->
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+      </div>
+     </div>  
+    <!-- 書籍內容簡介 -->
+    <div class="mt-5">
+        <h4 style="color: grey;">內容簡介：</h4>
+        <p class="mt-2">
+          <strong>
+            從作祟妖怪到寵物明星，從捕鼠工具到家庭成員<br>
+          不管是遇上愛貓成癡的大文豪，還是嫉貓如仇的老百姓<br>
+          紛紛擾擾的人類社會裡，貓咪始終漫步在你我身邊<br>
+          跟著牠們小巧輕靈的腳步，見證歷史發展的軌跡！<br>
+          </strong>
+           <br>
+          店家擺的招財貓，真的是貓咪受歡迎的象徵嗎？<br>
+          愛貓的天堂「貓島」，其實是畏懼貓妖作祟的結果？<br>
+          戰後如雨後春筍般出現的公寓大樓，竟然讓貓的人氣扶搖直上？<br>
+          世界上第一間貓咖啡館，居然是在臺灣開幕？<br>
+          「給貓金幣」「給貓柴魚片」這些日本俗諺，又是什麼意思？<br>
+          到底還有哪些新奇有趣的貓咪歷史迷霧，等著你來探索！<br>
+           <br>
+          當我們說到貓，直覺想到貓的「可愛」「逗趣」，是無法取代的「家庭成員」；提及貓的歷史，不外乎古代埃及人對貓的信仰和崇拜，或是各式各樣古人愛貓成痴的趣聞。可是，如果要你談起日常生活中隨處可見的貓，牠們在人類社會之間的歷史，是不是就感到一片空白？<br>
+           <br>
+          特別是過去這一兩百年裡，人類世界也發生了天翻地覆的變化，這些穿梭在街頭巷弄或是飼養在家中的貓咪們，又面對了如何的改變？另外，既然有「愛貓」的歷史，自然就有對貓「不感興趣」，甚至「厭惡」的人存在，這群人又在貓的歷史中扮演什麼角色呢？<br>
+           <br>
+          早稻田大學教授真邊將之，將帶領我們從明治維新出發，經歷關東大地震、二次世界大戰，一路談到戰後高度成長期，以及現代網際網路的興起，追尋這段貓與人類譜寫的歷史，牠們走過的種種歲月，正是人類社會變遷的最佳寫照！。<br>
+           <br>
+          例如：大文豪夏目漱石的《我是貓》，扭轉了貓在文學中的形象與地位，讓貓正式坐上主角大位，掀起一波熱潮；二十世紀初，日本政府為了消滅鼠疫的威脅，開始獎勵民眾養貓，甚至挨家挨戶上門宣導，還讓貓的價格水漲船高。<br>
+           <br>
+          但歷史總是一體兩面，必然有討厭或懼怕、對貓不友善或殘忍虐待殺害的過去，好比日本各地都有貓妖作祟的傳說，還有「貓三年之恩三日就忘」的俗諺。二戰期間物資短缺的時候，政府便下令徵用貓皮來做成防寒大衣，還有人為了充飢，將貓也吞下肚。<br>
+           <br>
+          到了戰後，在日本經濟復甦、高度成長的年代，各式各樣集合住宅、公寓大樓的興起，讓貓成為這類新型住宅裡最受歡迎的寵物，可是卻也是造成鄰居投訴、破壞社會安寧的源頭。到了我們最為熟悉的網路世代，造就各式各樣的貓咪明星、賞貓景點、網路迷因，將貓咪熱潮推向了新一波的高峰！<br>
+<br>
+        </p>
+          
+    </div>
+   </div>
+  </div>
+</div>
+
+<!-- 書籍內容彈出視窗 我們賴以為生的規則-->
+<div id="bookModal7" class="bookModal" tabindex="-1">
+<div class="modalContent">
+  <!-- 內容 -->
+  <div class="modal-content-inner">
+   <!-- 打叉離開 --> 
+   <div><span class="closeBtn">&times;</span></div>
+   <!-- 書籍封面 -->
     <div>
+      <img src="./img/書籍照片/規則2.png" alt="">
+     </div>
+     <br>
+     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+     <div>
+    <h1>我們賴以為生的規則</h1>
+    <h5 style="color: gray">從量尺、食譜、法律到演算法，人類如何確立和打破一切？</h5>
+    <h5 style="color: gray">Rules: A Short History of What We Live By</h5>
+    <hr />
+    <ul class="list-unstyled">
+      <li>
+        作&nbsp;者：
+         <a href="../作者頁面/洛琳_達斯頓.html" class="link-secondary">  洛琳‧達斯頓</a>
+       </li>
+       <li>
+         出&nbsp;版&nbsp;社：
+         <a href="../出版社頁面/台灣商務.html" class="link-secondary"> 臺灣商務</a>
+       </li>
+       <li>出&nbsp;版&nbsp;日&nbsp;期：2024/05/14</li>
+       <li>ISBN：9789570535648</li>
+    </ul>
+     </div>
+     <!-- 分享及心得填寫按鈕 -->
+   <div class="d-flex">
+    <div class="dropdown">
+      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+          分享
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+      </ul>
+    </div>
+    <!-- 設計彈出視窗，裡面為textarea -->
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+      data-bs-toggle="modal"
+      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+    </div>
+   </div>  
+  <!-- 書籍內容簡介 -->
+  <div class="mt-5">
+      <h4 style="color: grey;">內容簡介：</h4>
+      <p class="mt-2">
+        榮獲2023美國出版者協會PROSE科學、醫療、科技史獎<br>
+                這是一段「不證自明者」的歷史，<br>
+                為你揭開人類企圖規範世界的永恆嘗試！<br>
+                <br>
+                小到下廚煮菜的料理食譜，大到法庭斷案的法律條文<br>
+                規則在我們的生活中無所不在，決定了社會運轉的方式<br>
+                讓我們追尋規則的前世今生，<br>
+                如何生效、失靈以及重建，以致如何形塑我們的世界<br>
+                <br>
+                規則，決定了我們生活的一切：一天上班幾個小時？開車要靠左還靠右行駛？搭飛機可以攜帶多少行李？什麼是四壞球保送？法官如何判定罪犯的刑期？面試要穿什麼樣的服裝？以及婚喪喜慶的儀式該如何舉行？有些規則鉅細靡遺到我們嫌它繁瑣、有些規則大而化之到我們嫌它空泛，然而沒有任何人、任何文化、任何文明能夠拋棄規則，規則從無到有、有中生變的過程，就是一部人類社會的發展史！<br>
+                <br>
+                科學史泰斗洛琳．達斯頓透過包羅萬象、橫跨古今的例子，從古希臘羅馬測量長度的蘆葦、中世紀修道院恪守的清規、近代早期教你如何煮布丁的食譜，一路到啟蒙時代的自然法與自然律則、近現代歐美語言的拼寫規定，甚至是二十世紀紀蔚為風潮的演算法，探討規則三種歷久不衰的定義：測量工具、模範與典範，以及法律。<br>
+                <br>
+                她生動描述規則的變遷與矛盾，是如何深深影響人們對於規則的想像與期盼，我們總是希望能建立一個普世皆準的準則，卻不斷面臨各種例外狀況的挑戰，而疫情時代各種眼花撩亂、措手不及的防疫規定，正是一道全世界記憶猶新的明證，達斯頓的這本書正逢其時地讓我們重新思考，規則之於當代社會的真正意涵！<br>
+      </p>
+        
+  </div>
+ </div>
+</div>
+</div>
+
+<!-- 書籍內容彈出視窗 海：另一個未知的宇宙 -->
+<div id="bookModal8" class="bookModal" tabindex="-1">
+<div class="modalContent">
+  <!-- 內容 -->
+  <div class="modal-content-inner">
+   <!-- 打叉離開 --> 
+   <div><span class="closeBtn">&times;</span></div>
+   <!-- 書籍封面 -->
+    <div>
+      <img src="./img/書籍照片/海2.png" alt="">
+     </div>
+     <br>
+     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+     <div>
+    <h1>海：另一個未知的宇宙</h1>
+    <h5 style="color: gray">百萬小說《群》姊妹作【首創驚悚小說手法，刻畫45億年海洋史】</h5>
+    <h5 style="color: gray">Nachrichten aus einem unbekannten Universum: Eine Zeitreise durch die Meere</h5>
+    <hr />
+    <ul class="list-unstyled">
+      <li>
+        作&nbsp;者：
+         <a href="../作者頁面/法蘭克_薛慶.html" class="link-secondary">  法蘭克．薛慶</a>
+       </li>
+       <li>
+         出&nbsp;版&nbsp;社：
+         <a href="../出版社頁面/野人出版社.html" class="link-secondary">野人文化</a>
+       </li>
+       <li>出&nbsp;版&nbsp;日&nbsp;期： 2020/06/10</li>
+       <li>ISBN：9789863844273</li>
+    </ul>
+     </div>
+     <!-- 分享及心得填寫按鈕 -->
+   <div class="d-flex">
+    <div class="dropdown">
+      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+          分享
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+      </ul>
+    </div>
+    <!-- 設計彈出視窗，裡面為textarea -->
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+      data-bs-toggle="modal"
+      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+    </div>
+   </div>  
+  <!-- 書籍內容簡介 -->
+  <div class="mt-5">
+      <h4 style="color: grey;">內容簡介：</h4>
+      <p class="mt-2">
+        <strong>
+          It's not a novel, but it's still a thriller.<br>                   
+          百萬小說《群》姐妹作！<br>
+          首創驚悚小說手法，刻畫45億年海洋史><br>
+      </strong>
+      <br>
+      ★全國高中老師不分科 群推薦<br>
+      ★誠品暢銷榜TOP1<br>
+      ★博客來科普類TOP1<br>
+      ★金石堂文學榜TOP3<br>
+      <br>
+      寫完《群》之後，意猶未盡的薛慶，忍不住打開進化女神的手提包，<br>
+      先陪三葉蟲吃飯、看珊瑚蓋房子，又偷窺琵琶魚A片，<br>
+      一邊幫鯊魚貼上魚翅說明書，一邊還原《白鯨記》犯罪現場，<br>
+      令讀者再也分不清科普和小說的疆界！<br>
+      <br>
+      「昨天」清晨，下了一場傾盆大雨！<br>
+      <br>
+      沒有任何一家電視台有膽量播放這樣的天氣預報。大雨溫度超過攝氏300度，在100個大氣壓力下，水在這樣的高溫下才能凝結成雨。原始海洋出現了，但裡面沒有任何生命，沒有人能在那樣的海洋中游泳。大雨持續下著，持續了幾千年。<br>
+      <br>
+      「昨天」中午，優雅的進化女神拎著手提包出現。她的包包裡充滿了生命，單細胞生物開始占據海洋。由於她貪睡了30億年，進度嚴重落後，上帝不滿地抱怨：「我的訂單上寫著，寒武紀初期就該有霸王龍。什麼？妳才造出貝殼和蝸牛？還不快幹活去！」<br>
+      <br>
+      「昨天」下午，一群年輕時髦的藍綠藻，竟在光天化日下大肆繁殖，還到處亂扔氧氣。直到傍晚，原本對「性」不太感興趣的進化女神，為了讓地球免於「人口」爆炸的災難，不得不規定，有些生物不能使用細胞分裂的方式來繁殖，而必須兩兩相遇幽會，再共同製造下一代。<br>
+      <br>
+      飢腸轆轆的小三葉蟲發現了蠕蟲美食，正要享用大餐，忽然一個龐然大物從天而降，遮住它的視線，兩根魔爪鉗迎面伸來。但三葉蟲命不該絕，使盡各種花招，一再死裡逃生，安然活過了寒武紀、奧陶紀、志留紀……，撐到二曡紀，終於還是完蛋啦！<br>
+      <br>
+      進化女神愈來愈忙，她所訂的遊戲規則也愈來愈複雜，但無論如何，她總算趕在「今天」天亮前，把魚龍、龍王鯨、巨齒鯊和人類，都一一造了出來……<br>
+      <br>
+      愛海成癡的薛慶，以一貫創作驚悚小說的大膽手法、閒話家常的幽默筆調，細數海洋的古今大小事。全書以前天、昨天、今天、明天、後天為軸，帶領讀者搭乘時空客機，上天下地觀賞地球、海洋和人類文明發展的歷史故事，一路盡是「薛慶式」風趣淵博又發人深省的導覽解說：「『請把我碾成藥粉吧！』海藻背上的說明書應該這麼寫，『這樣就可以把我用在你的面膜、敷泥和沐浴乳中。』」「當鯊魚聽到人的慘叫聲時，牠知道獵物的痛苦嗎？還是牠們會把這種慘叫視為獵物新鮮的信號，就像我們把檸檬汁滴在牡蠣肉上，愜意地看著牠戰慄一樣？」薛慶說故事的才華在此書盡情揮灑，各種比喻和觀點出神入化，在在令人拍案叫絕！<br>
+      </p>
+        
+  </div>
+ </div>
+</div>
+</div>
+
+<!-- 書籍內容彈出視窗 特搜！臺灣都市傳說 -->
+<div id="bookModal9" class="bookModal" tabindex="-1">
+<div class="modalContent">
+  <!-- 內容 -->
+  <div class="modal-content-inner">
+   <!-- 打叉離開 --> 
+   <div><span class="closeBtn">&times;</span></div>
+   <!-- 書籍封面 -->
+    <div>
+      <img src="./img/書籍照片/特搜2.png" alt="">
+     </div>
+     <br>
+     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+     <div>
+    <h1>特搜！臺灣都市傳說</h1>
+    <h5 style="color: gray">傳說就是這樣煉成的！</h5>
+    <hr />
+    <ul class="list-unstyled">
+      <li>
+        作&nbsp;者：
+         <a href="../作者頁面/謝宜安.html" class="link-secondary"> 謝宜安</a>
+       </li>
+       <li>
+         出&nbsp;版&nbsp;社：
+         <a href="../出版社頁面/蓋亞.html" class="link-secondary">蓋亞</a>
+       </li>
+       <li>出&nbsp;版&nbsp;日&nbsp;期： 2020/03/11</li>
+       <li>ISBN：9789863194705</li>
+    </ul>
+     </div>
+     <!-- 分享及心得填寫按鈕 -->
+   <div class="d-flex">
+    <div class="dropdown">
+      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+          分享
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+      </ul>
+    </div>
+    <!-- 設計彈出視窗，裡面為textarea -->
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+      data-bs-toggle="modal"
+      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+    </div>
+   </div>  
+  <!-- 書籍內容簡介 -->
+  <div class="mt-5">
+      <h4 style="color: grey;">內容簡介：</h4>
+      <p class="mt-2">
+        你還記得嗎？<br>
+        人面魚、多腿雞、日治刑場、辛亥隧道、蔣公銅像⋯⋯<br>
+        破解十三則曾經席捲臺灣人生活的都市傳說。<br>
+         <br>
+        ★完整爬梳事件始末，細密追究，還原時空。<br>
+        ★紀實照片＋PAPARAYA特繪插畫，完整解析傳說流傳散布的原因。<br>
+         <br>
+        除魅破解，直探隱密核心。你準備好接受真相了嗎？<br>
+        <br>
+        每一則都市傳說都是一組密碼，<br>
+        暗藏故事流傳之地的人心需求。<br>
+        <br>
+        ——&nbsp;華航空難後的神祕語音留言，真是最後的求救？<br>
+        ——&nbsp;衛爾康大火，懸停第一廣場的幽靈船傳說從何而來？<br>
+        ——&nbsp;辛亥隧道消失的白衣女乘客，最早的出現地不是臺灣！？<br>
+        ——&nbsp;行天宮附近的斷肢丐童，傳聞說是犯罪集團刻意「製造」？<br>
+        ——&nbsp;各國媒體都報導，醒來泡在浴缸裡的盜腎傳說是真是假？<br>
+        ——&nbsp;怎麼可能有那麼多雞腿？謠傳肯德基使用基改多腿多翅雞……<br>
+        ——&nbsp;人群中被扎一針，於是染上愛滋病？傳說背後的社會心理值得剖析。<br>
+        ——&nbsp;恐怖遊樂園，尤其留長髮的人特別要注意，千萬別被機械咬一口。<br>
+        ——&nbsp;西門町獅子林、君悅酒店、彰中彰商一帶、綠島燕子洞……日治時期臺灣刑場有那麼多？<br>
+        ——&nbsp;所有校園必備的蔣公跟國父銅像，製造出了多少校園怪談？<br>
+        ——&nbsp;乍看是民俗，其實現代傳說！最年輕妖怪嬰靈居然因「反墮胎」而被創造？<br>
+        ——&nbsp;說話的人面魚傳說背後，牽連哪些宗教觀念、日本怪談，以及時代想像……<br>
+        ——&nbsp;從私人V8攝影機到小說、電影熱門IP，紅衣小女孩居然有「造假」之說？<br>
+      </p>
+        
+  </div>
+ </div>
+</div>
+</div>
+
+<!-- 書籍內容彈出視窗 必修！臺灣校園鬼故事考 -->
+<div id="bookModal10" class="bookModal" tabindex="-1">
+<div class="modalContent">
+  <!-- 內容 -->
+  <div class="modal-content-inner">
+   <!-- 打叉離開 --> 
+   <div><span class="closeBtn">&times;</span></div>
+   <!-- 書籍封面 -->
+    <div>
+      <img src="./img/書籍照片/校園鬼故事2.png" alt="">
+     </div>
+     <br>
+     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+     <div>
+    <h1>必修！臺灣校園鬼故事考</h1>
+    <h5 style="color: gray">Taiwanese School Ghost Stories and Where They Come From</h5>
+    <hr />
+    <ul class="list-unstyled">
+      <li>
+        作&nbsp;者：
+         <a href="../作者頁面/謝宜安.html" class="link-secondary"> 謝宜安</a>
+       </li>
+       <li>
+         出&nbsp;版&nbsp;社：
+         <a href="../出版社頁面/蓋亞.html" class="link-secondary">蓋亞</a>
+       </li>
+       <li>出&nbsp;版&nbsp;日&nbsp;期： 2024/03/06</li>
+       <li>ISBN：9786263840805</li>
+    </ul>
+     </div>
+     <!-- 分享及心得填寫按鈕 -->
+   <div class="d-flex">
+    <div class="dropdown">
+      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+          分享
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+      </ul>
+    </div>
+    <!-- 設計彈出視窗，裡面為textarea -->
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+      data-bs-toggle="modal"
+      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+    </div>
+   </div>  
+  <!-- 書籍內容簡介 -->
+  <div class="mt-5">
+      <h4 style="color: grey;">內容簡介：</h4>
+      <p class="mt-2">
+        它必須是一則完整的好 「故事」；<br>
+        但它的恐怖，又因為它被認為是 「眞實的」。<br>
+        <br>
+        習以為常的校園空間，<br>
+        會因為「想像鬼的存在」，而變得不可思議起來⋯⋯<br>
+        <br>
+        台大醉月湖女鬼、成大穿牆人、政大屍水宿舍、中原無頭鬼、淡江宮燈姊姊、東海女鬼橋、文大鬼電梯、淸大幽靈兒童樂園；<br>
+        逆八卦的大樓、被封鎖的宿舍寢室、無人的廁所、操場上的靈異軍人、夢遊的室友、夜半跳動的籃球聲⋯⋯<br>
+        <br>
+        為什麼「所有學校都很陰」？<br>
+        為什麼許多鬼故事，起源與大放異彩的年代，總是1990年？<br>
+        臺灣校園鬼故事，有別於其他國家，又反映出什麼樣的「臺灣性」？<br>
+        這些流傳於不同學校，似曾相識的鬼故事，各自的起源與變化是什麼？<br>
+        想像中的恐懼與興奮，又如何被校園裡的同學們所需要？<br>
+        <br>
+        《必修！臺灣校園鬼故事考》系統性蒐集自1990年以來，流傳於網路上的各類校園鬼故事。作者以社會學與文本分析方法，從蒐集故事、追索源頭與變體痕跡，到分門別類、研究詮釋，耗時四年。全書總計收錄十大類、100則涵蓋全台高中大學的校園鬼故事，兼具接地氣的恐懼想像與研究者的分析趣味，也引領讀者一同重返那個特殊、獨有、又愛又怕的鬼故事時刻。
+    </p>
+        
+  </div>
+  </div>
+</div>
+</div>
+
+<!-- 書籍內容彈出視窗 99%隱形的城市日常設計 -->
+<div id="bookModal11" class="bookModal" tabindex="-1">
+<div class="modalContent">
+  <!-- 內容 -->
+  <div class="modal-content-inner">
+   <!-- 打叉離開 --> 
+   <div><span class="closeBtn">&times;</span></div>
+   <!-- 書籍封面 -->
+    <div>
+      <img src="./img/書籍照片/2城市.png" alt="">
+     </div>
+     <br>
+     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+     <div>
+    <h1>99%隱形的城市日常設計</h1>
+    <h5 style="color: gray">The 99% Invisible City: A Field Guide to the Hidden World of Everyday Design</h5>
+    <hr />
+    <ul class="list-unstyled">
+      <li>
+        作&nbsp;者：
+         <a href="../作者頁面/羅曼．馬斯.html" class="link-secondary">  羅曼．馬斯 </a>&nbsp;
+         <a href="../作者頁面/柯特．科爾斯泰特.html" class="link-secondary"> 柯特．科爾斯泰特 </a>
+       </li>
+       <li>
+         出&nbsp;版&nbsp;社：
+         <a href="../出版社頁面/野人出版社.html" class="link-secondary">野人文化</a>
+       </li>
+       <li>出&nbsp;版&nbsp;日&nbsp;期： 2022/11/02</li>
+       <li>ISBN：9789863847922</li>
+    </ul>
+     </div>
+     <!-- 分享及心得填寫按鈕 -->
+   <div class="d-flex">
+    <div class="dropdown">
+      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+          分享
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+      </ul>
+    </div>
+    <!-- 設計彈出視窗，裡面為textarea -->
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+      data-bs-toggle="modal"
+      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+    </div>
+   </div>  
+  <!-- 書籍內容簡介 -->
+  <div class="mt-5">
+      <h4 style="color: grey;">內容簡介：</h4>
+      <p class="mt-2">
+        <strong>
+        猜猜看，你視而不見的城市美景有多少？<br>
+        大約99%這麼多！<br>
+        這是一本精美的城市指南，帶你重新發掘城市中<br>
+        「存在有多久，你就無視有多久」的精巧設置！
+        </strong>
+        <br>
+        <br>
+        ★百貨公司跟高級大樓的旋轉門，除了美觀和趣味，難道還有其他功能？<br>
+        ★所謂的「雲端」，是如何藏在「海底」的呢？<br>
+        ★是哪個天才想到把在馬路畫中線，分開來往車輛與道路行人？<br>
+        ★台北101的吉祥物，不只是101這三個數字的具象化，還是穩定這座超高摩天大樓的關鍵！<br>
+<br>
+       一座享譽國際的知名巨大建築物，它的美感和建築設計其實只佔整體設計的百分之一。本書的任務就是揭秘設計中不為人知的隱藏故事。的確，一座摩天高樓令人讚嘆，並且為城市提供了美麗的天際線，但是建造背後99%的隱藏故事才是最精彩的部分。<br>
+<br>
+       除了存在感強烈的巨大建築物，那些時常被視而不見、但卻是維繫城市文明運作的重大關鍵，例如基地台、郵局、噴泉、水塔、電線桿、緊急出口、自行車道、街道、墓地、公共照明，甚至觀賞用的鴿子、錦鯉……等，也將在本書中拿掉隱形濾鏡，重新出現在你的視野。<br>
+<br>
+       你有印象，你的城市市旗長什麼樣子、是誰設計的、對你的生活有什麼影響嗎?你知道最受觀光客歡迎的愛情鎖，其實超讓當地人頭大嗎？你有沒有想過，公園或車站裡讓你覺得硬梆梆又難坐的椅子，其實就是沒有要讓你久坐的意思？當然，一座城市要維持市容的最極端做法，當然就是把車站座椅拆光光，讓遊民無處可睡！但這是我們最理想的城市型態嗎？<br>
+<br>
+       看完本書後，你可能會開始對路邊微小的斜坡感到振奮，因為你已經知道它是多少人的抗爭成果；你可能會發現與其和亂丟垃圾的人硬碰硬，在髒亂處放上一尊佛像反而是個好主意；也可能你會因為知道美國每年有1/5的停電是松鼠造成的，往後遭遇停電時，便不會再感到這麼煩躁，而是為我們可愛又毛茸茸的朋友默哀……<br>
+<br>
+       本書作者Roman Mars與Kurt Kohlstedt是Podcast節目99% Invisible的主持人與製作人，他們藉由對城市的深入研究與觀察，搭配貫穿全書、充滿溫度又時尚精緻的手繪插畫，完成這本俐落的城市探險指南。本書將吸引任何對設計、城市環境、都市規劃以及熱愛觀察城市中不為人知風貌的宅宅（Nerd）們！。<br>
+    </p>
+        
+  </div>
+ </div>
+</div>
+</div>
+
+
+
+
+
+  <!-- footer -->
+  <div>
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <il class="nav-item"
@@ -533,20 +1627,22 @@
         </small>
       </footer>
     </div>
-
+    
+    
+    
     <!-- 引入 Bootstrap 5 的 JS 和 Popper -->
     <script src="./bootstrap.bundle.js"></script>
-
+    
     <script>
       // 控制頂端導航欄顯示與隱藏
       const navbarTogglerBtn = document.getElementById("navbarTogglerBtn");
       const navbarCollapse = document.getElementById("navbarNav");
-
+      
       // 點擊漢堡按鈕時控制頂端導航欄的顯示與隱藏
       navbarTogglerBtn.addEventListener("click", function () {
         navbarCollapse.classList.toggle("show");
       });
-
+      
       // 當輸入特定ISBN並點選儲存會新增一個新書頁面在版面上
       let clickAdd = document.querySelector("#saveNewBook");
       let addNew = document.querySelector("#newBookHome");
@@ -556,14 +1652,104 @@
       clickAdd.addEventListener("click", () => {
         addNew.innerHTML = `
         <div class="h-100">
-            <a href="./書籍頁面/城市隱形設計.html" class="bookStyle"><img  src="./img/書籍照片/城市.jpg" class="card-img-top img-fluid mt-3 " alt="..." /><div class="card-body"><strong><h5 class="card-title ps-4 mt-2">99%隱形的城市日常設計</h5></strong></div>
-            <a href="../作者頁面/羅曼．馬斯.html" class="card-body ps-4 pt-5">羅曼．馬斯 </a><br/>
-            <a href="../作者頁面/柯特．科爾斯泰特.html" class="card-body ps-4 pt-5">柯特．科爾斯泰特</a>
-            <br />
-            <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">野人文化</a>
-        </div>`;
-        addNewBookModal.hide();
-      });
+          <img src="./img/書籍照片/城市.jpg" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover11">
+          <div class="card-body">
+            <strong>
+              <h5 class="card-title ps-4 mt-2">99%隱形的城市日常設計</h5>
+              </strong>
+              <a href="../作者頁面/羅曼．馬斯.html" class="card-body ps-4 pt-5">羅曼．馬斯 </a><br/>
+              <a href="../作者頁面/柯特．科爾斯泰特.html" class="card-body ps-4 pt-5">柯特．科爾斯泰特</a>
+              <br />
+              <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">野人文化</a>
+              </div>
+              </div>`;
+              addNewBookModal.hide();
+            });
+
+            
+
+            // 獲取書籍封面和彈跳視窗的元素
+            let modals = {
+              bookCover1: document.getElementById("bookModal1"),
+              bookCover2: document.getElementById("bookModal2"),
+              bookCover3: document.getElementById("bookModal3"),
+              bookCover4: document.getElementById("bookModal4"),
+              bookCover5: document.getElementById("bookModal5"),
+              bookCover6: document.getElementById("bookModal6"),
+              bookCover7: document.getElementById("bookModal7"),
+              bookCover8: document.getElementById("bookModal8"),
+              bookCover9: document.getElementById("bookModal9"),
+              bookCover10: document.getElementById("bookModal10"),
+              bookCover11: document.getElementById("bookModal11"),
+              
+            };
+            
+            // 綁定書籍封面的點擊事件，打開對應的彈跳視窗
+            document.getElementById("classCover1").onclick = function() {
+              modals.bookCover1.style.display = "block";
+            };
+            document.getElementById("classCover2").onclick = function() {
+              modals.bookCover2.style.display = "block";
+            };
+            document.getElementById("classCover3").onclick = function() {
+              modals.bookCover3.style.display = "block";
+            };
+            document.getElementById("classCover4").onclick = function() {
+              modals.bookCover4.style.display = "block";
+            };
+            document.getElementById("classCover5").onclick = function() {
+              modals.bookCover5.style.display = "block";
+            };
+            document.getElementById("classCover6").onclick = function() {
+              modals.bookCover6.style.display = "block";
+            };
+            document.getElementById("classCover7").onclick = function() {
+              modals.bookCover7.style.display = "block";
+            };
+            document.getElementById("classCover8").onclick = function() {
+              modals.bookCover8.style.display = "block";
+            };
+            document.getElementById("classCover9").onclick = function() {
+              modals.bookCover9.style.display = "block";
+            };
+            document.getElementById("classCover10").onclick = function() {
+              modals.bookCover10.style.display = "block";
+            };
+            document.getElementById("classCover11").onclick = function() {
+              modals.bookCover11.style.display = "block";
+            };
+            
+            // 獲取特定彈跳視窗關閉按鈕
+            // let closeButtons = {
+              //   closeButtons1: document.querySelectorAll(".closeBtn")[0],
+              //   closeButtons2: document.querySelectorAll(".closeBtn")[1],
+              //   closeButtons3: document.querySelectorAll(".closeBtn")[2],
+              //   closeButtons4: document.querySelectorAll(".closeBtn")[3],
+              //   closeButtons5: document.querySelectorAll(".closeBtn")[4],
+              //   closeButtons6: document.querySelectorAll(".closeBtn")[5],
+              //   closeButtons7: document.querySelectorAll(".closeBtn")[6],
+              //   closeButtons8: document.querySelectorAll(".closeBtn")[7],
+    //   closeButtons9: document.querySelectorAll(".closeBtn")[8],
+    //   closeButtons10: document.querySelectorAll(".closeBtn")[9],
+    //   closeButtons11: document.querySelectorAll(".closeBtn")[10],
+    // };
+    
+    // 關不掉視窗，目前第一本書的關閉按鈕有id其他都沒有
+    document.getElementById("closebtn1").onclick=function(){
+      modals.bookCover11.style.display = "hidden";
+    }
+    console.log("closebtn1");
+    
+    
+    
+    
+    
+
+   
+
+
+
+
     </script>
   </body>
 </html>
