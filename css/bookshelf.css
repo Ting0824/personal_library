@@ -1,0 +1,149 @@
+/* 讓側邊導覽列的寬度固定 */
+.sidebar {
+  height: 100vh;
+  background-color: #9dc3c1;
+  padding-top: 55px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  transition: 0.3s;
+}
+
+.sidebar a {
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  color: #333;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  background-color: #ccd9d9;
+}
+
+#submenu1 {
+  text-decoration: none;
+  background-color: #ccd9d9;
+  font-size: 18px;
+}
+
+#submenu1 a:hover {
+  background-color: #d8e6e7;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+/* 在小螢幕上隱藏側邊欄並用漢堡控制頂端導覽列 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: -250px;
+    width: 250px;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  /* 顯示漢堡按鈕來控制頂端導航欄顯示與隱藏 */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* 隱藏側邊欄收合按鈕 */
+  .sidebar-toggler {
+    display: none;
+  }
+
+  /* 控制頂端導航欄顯示狀態 */
+  .navbar-collapse {
+    display: none;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+}
+
+/* 桌面版不顯示側邊欄收合按鈕 */
+@media (min-width: 769px) {
+  .sidebar-toggler {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 250px;
+  }
+}
+
+/* 讓書籍圖片移動 */
+.card-img-top:hover {
+  transform: translateY(-10px);
+}
+
+/* 書籍資訊彈跳遮罩層 */
+.bookModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 書籍資訊彈跳視窗內容 */
+.modalContent {
+  background-color: white;
+  margin: 0 auto; /* 水平居中 */
+  position: fixed;
+  top: 50%; /* 垂直居中 */
+  left: 50%; /* 垂直居中 */
+  transform: translate(-50%, -50%); /* 使彈跳視窗精確置中 */
+  padding: 0; /* 移除 padding，讓內部滾動區域有 padding */
+  border-radius: 8px;
+  width: 80%; /* 預設寬度是 80% */
+  max-width: 600px; /* 最大寬度不超過 600px */
+  max-height: 80vh; /* 最大高度不超過 80% 的螢幕高度 */
+  overflow: auto; /* 防止滾動條影響圓角 */
+}
+
+.modal-content-inner {
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto; /* 在內部實現滾動效果 */
+}
+
+.closeBtn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    width: 90%; /* 更小螢幕時視窗寬度為 90% */
+    padding: 10px; /* 內邊距縮小 */
+  }
+}

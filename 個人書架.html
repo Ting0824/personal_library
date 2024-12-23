@@ -11,162 +11,8 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link rel="stylesheet" href="./css/bookshelf.css">
     <link rel="icon" href="../img/主題標示.png" />
-
-    <style>
-      /* 讓側邊導覽列的寬度固定 */
-      .sidebar {
-        height: 100vh;
-        background-color: #9dc3c1;
-        padding-top: 55px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        transition: 0.3s;
-      }
-
-      .sidebar a {
-        text-decoration: none;
-        padding: 10px 15px;
-        display: block;
-        color: #333;
-        font-size: 18px;
-      }
-
-      .sidebar a:hover {
-        background-color: #ccd9d9;
-      }
-
-      #submenu1 {
-        text-decoration: none;
-        background-color: #ccd9d9;
-        font-size: 18px;
-      }
-
-      #submenu1 a:hover {
-        background-color: #d8e6e7;
-      }
-
-      .main-content {
-        margin-left: 250px;
-        padding: 20px;
-        transition: margin-left 0.3s;
-      }
-
-      /* 在小螢幕上隱藏側邊欄並用漢堡控制頂端導覽列 */
-      @media (max-width: 768px) {
-        .sidebar {
-          position: absolute;
-          top: 0;
-          left: -250px;
-          width: 250px;
-        }
-
-        .sidebar.show {
-          left: 0;
-        }
-
-        .main-content {
-          margin-left: 0;
-        }
-
-        /* 顯示漢堡按鈕來控制頂端導航欄顯示與隱藏 */
-        .navbar-toggler {
-          display: block;
-        }
-
-        /* 隱藏側邊欄收合按鈕 */
-        .sidebar-toggler {
-          display: none;
-        }
-
-        /* 控制頂端導航欄顯示狀態 */
-        .navbar-collapse {
-          display: none;
-        }
-
-        .navbar-collapse.show {
-          display: block;
-        }
-      }
-
-      /* 桌面版不顯示側邊欄收合按鈕 */
-      @media (min-width: 769px) {
-        .sidebar-toggler {
-          display: none;
-        }
-
-        .main-content {
-          margin-left: 250px;
-        }
-      }
-
-      /* 讓書籍圖片移動 */
-      .card-img-top:hover {
-        transform: translateY(-10px);
-      }
-
-
-        /* 書籍資訊彈跳遮罩層 */
-        .bookModal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      /* 書籍資訊彈跳視窗內容 */
-      .modalContent {
-        background-color: white;
-            margin: 0 auto;  /* 水平居中 */
-            position: fixed;
-            top: 50%;  /* 垂直居中 */
-            left: 50%;  /* 垂直居中 */
-            transform: translate(-50%, -50%);  /* 使彈跳視窗精確置中 */
-            padding: 0;  /* 移除 padding，讓內部滾動區域有 padding */
-            border-radius: 8px;
-            width: 80%;  /* 預設寬度是 80% */
-            max-width: 600px;  /* 最大寬度不超過 600px */
-            max-height: 80vh;  /* 最大高度不超過 80% 的螢幕高度 */
-            overflow: auto;  /* 防止滾動條影響圓角 */
-      }
-
-      .modal-content-inner {
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;  /* 在內部實現滾動效果 */
-        }
-
-      .closeBtn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .closeBtn:hover,
-      .closeBtn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      @media (max-width: 600px) {
-            .modalContent {
-                width: 90%;  /* 更小螢幕時視窗寬度為 90% */
-                padding: 10px;  /* 內邊距縮小 */
-            }
-
-        }
-
-    </style>
   </head>
   <body>
     <!-- 頂部導航欄 -->
@@ -189,11 +35,23 @@
               >首頁</a
             >
           </li>
-          <li class="nav-item ms-2">
-            <a class="nav-link" href="#">書架</a>
+          <li class="nav-item ms-2 dropdown">
+            <a class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">書架</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">全部書籍</a></li>
+              <li><a class="dropdown-item" href="#">小說</a></li>
+              <li><a class="dropdown-item" href="#">台灣鬼故事</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-plus"></i>新增書櫃</a></li>
+            </ul>
           </li>
           <li class="nav-item ms-2">
-            <a class="nav-link" href="#">閱讀紀錄</a>
+            <a class="nav-link" href="#">收藏</a>
           </li>
         </ul>
       </div>
@@ -201,7 +59,7 @@
 
     <!-- 側邊導覽列 -->
     <div class="sidebar list-group-flush text-center" id="sidebar">
-      <a href="./個人資料.html"
+      <a href="./個人資料.html" class="mt-4"
         ><img
           src="./img/會員頭貼.png"
           class="rounded-circle"
@@ -230,7 +88,12 @@
           >小說</a
         >
         <a href="#" class="list-group-item list-group-item-action ps-4"
-          >歷史</a
+          >台灣鬼故事</a
+        >
+        <hr>
+
+        <a href="#" class="list-group-item list-group-item-action ps-4"
+          ><i class="bi bi-plus"></i>新增書櫃</a
         >
       </div>
       <a href="">收藏</a>
@@ -244,7 +107,7 @@
 
       <hr>
       <!-- 篩選及排序 -->
-    <div class="d-flex">
+    <div  class="d-flex">
         <!-- filter標示 -->
       <div class="dropdown">
         <button class="btn border-0" data-bs-toggle="dropdown">
@@ -254,67 +117,44 @@
         
       <ul  class="dropdown-menu">
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addNewNote"><i class="bi bi-book-fill" style="color: gray;"></i>&nbsp;閱讀完畢</button>
+          <button class="dropdown-item"><i class="bi bi-book-fill" style="color: gray;"></i>&nbsp;閱讀完畢</button>
         </li>
         
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-book" style="color: gray;"></i></i>&nbsp;尚未閱讀</button>
+          <button class="dropdown-item"><i class="bi bi-book" style="color: gray;"></i></i>&nbsp;尚未閱讀</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-journal" style="color: gray;"></i></i>&nbsp;文學小說</button>
+          <button class="dropdown-item"><i class="bi bi-journal" style="color: gray;"></i></i>&nbsp;文學小說</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-brush-fill" style="color: gray;"></i></i>&nbsp;藝術設計</button>
+          <button class="dropdown-item"><i class="bi bi-brush-fill" style="color: gray;"></i></i>&nbsp;藝術設計</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-person-fill" style="color: gray;"></i></i>&nbsp;人文社科</button>
+          <button class="dropdown-item"><i class="bi bi-person-fill" style="color: gray;"></i></i>&nbsp;人文社科</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-heart-fill" style="color: gray;"></i></i>&nbsp;心理勵志</button>
+          <button class="dropdown-item"><i class="bi bi-heart-fill" style="color: gray;"></i></i>&nbsp;心理勵志</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-tree-fill" style="color: gray;"></i></i>&nbsp;自然科普</button>
+          <button class="dropdown-item"><i class="bi bi-tree-fill" style="color: gray;"></i></i>&nbsp;自然科普</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-cup-hot-fill" style="color: gray;"></i></i>&nbsp;生活風格</button>
+          <button class="dropdown-item"><i class="bi bi-cup-hot-fill" style="color: gray;"></i></i>&nbsp;生活風格</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-airplane-fill" style="color: gray;"></i></i>&nbsp;旅遊</button>
+          <button class="dropdown-item"><i class="bi bi-airplane-fill" style="color: gray;"></i></i>&nbsp;旅遊</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-backpack3-fill" style="color: gray;"></i></i>&nbsp;童書/青少年文學</button>
+          <button class="dropdown-item"><i class="bi bi-backpack3-fill" style="color: gray;"></i></i>&nbsp;童書/青少年文學</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-palette-fill" style="color: gray;"></i></i>&nbsp;漫畫/圖文書</button>
+          <button class="dropdown-item"><i class="bi bi-palette-fill" style="color: gray;"></i></i>&nbsp;漫畫/圖文書</button>
         </li>
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-laptop-fill" style="color: gray;"></i></i>&nbsp;電腦資訊</button>
+          <button class="dropdown-item"><i class="bi bi-laptop-fill" style="color: gray;"></i></i>&nbsp;電腦資訊</button>
         </li>
       </ul>
+     
       </div> 
        <!--排序  -->
       <div class="dropdown">
@@ -325,19 +165,28 @@
         
       <ul  class="dropdown-menu">
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addNewNote"><i class="bi bi-sort-down" style="color: gray;"></i>&nbsp;出版日期遠到近</button>
+          <button class="dropdown-item"><i class="bi bi-sort-down" style="color: gray;"></i>&nbsp;出版日期遠到近</button>
         </li>
         
         <li>
-          <button class="dropdown-item"
-          data-bs-toggle="modal"
-          data-bs-target="#addComment"><i class="bi bi-sort-up" style="color: gray;"></i></i>&nbsp;出版日期近到遠</button>
+          <button class="dropdown-item"><i class="bi bi-sort-up" style="color: gray;"></i></i>&nbsp;出版日期近到遠</button>
         </li>
       </ul>
       </div>  
     </div>
+    <!-- 搜尋書櫃內書籍 -->
+    <form   class="d-flex ">
+      <input
+        class="form-control me-2 mt-2  ms-auto"
+        type="search"
+        placeholder="輸入作者、書名、ISBN搜尋書櫃內書籍"
+        aria-label="Search"
+        style="width: 350px;"
+      />
+      <button class="btn btn-outline-secondary" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
       <br>
 
       <!-- 書櫃內容 -->
@@ -596,7 +445,7 @@
     <!-- 內容 -->
     <div class="modal-content-inner">
      <!-- 打叉離開 --> 
-     <div><span class="closeBtn" id="closebtn1">&times;</span></div>
+     <div><span class="closeBtn">&times;</span></div>
       <div>
         <!-- 書籍封面 -->
         <img src="./img/書籍照片/侑美與夢魘繪師2.png" alt="">
@@ -639,12 +488,12 @@
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook1Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook1Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -680,9 +529,12 @@
                 更可能永遠失去彼此之間的命運羈絆……<br>
         </p>
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
+
 </div>
+  
 
   <!-- 書籍內容彈出視窗 翠海的雀絲-->
 <div id="bookModal2" class="bookModal" tabindex="-1">
@@ -729,16 +581,15 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
         </ul>
       </div>
-      <!-- 設計彈出視窗，裡面為textarea -->
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -762,6 +613,7 @@
           在這個海盜橫行、無比凶險又奇特的孢子海洋上，只要一點點水就會致命，
           雀絲遇上一生從所未見的奇異生物和魔法事件，她能否在茫茫航行中，找到自己的正確方向？</p>
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
 </div>
@@ -815,12 +667,12 @@
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -852,6 +704,7 @@
 
             </p>
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
 </div>
@@ -904,12 +757,12 @@
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -954,6 +807,7 @@
 
             </p>
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
 </div>
@@ -1005,12 +859,12 @@
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -1047,6 +901,7 @@
               除了寫森林，希瑪爾也寫下自己的生命史。從小在加拿大卑詩省的雨林長大，家裡從事伐木工作，童年常在森林裡認識樹木，也學會如何愛樹木、尊重樹木。長大之後，她踏上一段發現之旅，也為此陷入痛苦掙扎。一邊是一路走來的科學探索，一邊是有關愛與失去、觀察和改變、危險和回報的人生旅程。在在讓我們瞭解人類的科學探索遠遠超過數據和技術的層面，真正的目的是瞭解自己是誰與我們在這世界的位置。透過作者的生命史，我們發現母樹用來滋養森林的連結網，正如同凝聚人類的家庭和社會，而這種難分難捨的連結，正是世界萬物得以存活的關鍵。<br>
         </p>
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
 </div>
@@ -1099,12 +954,12 @@
       <div>
         <button class="btn btn-outline-secondary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+        data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
       </div>
       <div>
         <button class="btn btn-outline-secondary mx-1"
             data-bs-toggle="modal"
-            data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+            data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
       </div>
      </div>  
     <!-- 書籍內容簡介 -->
@@ -1140,6 +995,7 @@
         </p>
           
     </div>
+    <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
    </div>
   </div>
 </div>
@@ -1192,12 +1048,12 @@
     <div>
       <button class="btn btn-outline-secondary mx-1"
       data-bs-toggle="modal"
-      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
     </div>
     <div>
       <button class="btn btn-outline-secondary mx-1"
           data-bs-toggle="modal"
-          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+          data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
     </div>
    </div>  
   <!-- 書籍內容簡介 -->
@@ -1221,6 +1077,7 @@
       </p>
         
   </div>
+  <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
  </div>
 </div>
 </div>
@@ -1273,12 +1130,12 @@
     <div>
       <button class="btn btn-outline-secondary mx-1"
       data-bs-toggle="modal"
-      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
     </div>
     <div>
       <button class="btn btn-outline-secondary mx-1"
           data-bs-toggle="modal"
-          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+          data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
     </div>
    </div>  
   <!-- 書籍內容簡介 -->
@@ -1317,6 +1174,7 @@
       </p>
         
   </div>
+  <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
  </div>
 </div>
 </div>
@@ -1368,12 +1226,12 @@
     <div>
       <button class="btn btn-outline-secondary mx-1"
       data-bs-toggle="modal"
-      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
     </div>
     <div>
       <button class="btn btn-outline-secondary mx-1"
           data-bs-toggle="modal"
-          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+          data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
     </div>
    </div>  
   <!-- 書籍內容簡介 -->
@@ -1408,6 +1266,7 @@
       </p>
         
   </div>
+  <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
  </div>
 </div>
 </div>
@@ -1459,12 +1318,12 @@
     <div>
       <button class="btn btn-outline-secondary mx-1"
       data-bs-toggle="modal"
-      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+      data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
     </div>
     <div>
       <button class="btn btn-outline-secondary mx-1"
           data-bs-toggle="modal"
-          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+          data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
     </div>
    </div>  
   <!-- 書籍內容簡介 -->
@@ -1490,102 +1349,146 @@
     </p>
         
   </div>
+  <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
   </div>
 </div>
 </div>
 
-<!-- 書籍內容彈出視窗 99%隱形的城市日常設計 -->
+<!-- 書籍內容彈出視窗 99%隱形的城市日常設計 抓不到 -->
 <div id="bookModal11" class="bookModal" tabindex="-1">
-<div class="modalContent">
-  <!-- 內容 -->
-  <div class="modal-content-inner">
-   <!-- 打叉離開 --> 
-   <div><span class="closeBtn">&times;</span></div>
-   <!-- 書籍封面 -->
-    <div>
-      <img src="./img/書籍照片/2城市.png" alt="">
-     </div>
-     <br>
-     <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
-     <div>
-    <h1>99%隱形的城市日常設計</h1>
-    <h5 style="color: gray">The 99% Invisible City: A Field Guide to the Hidden World of Everyday Design</h5>
-    <hr />
-    <ul class="list-unstyled">
-      <li>
-        作&nbsp;者：
-         <a href="../作者頁面/羅曼．馬斯.html" class="link-secondary">  羅曼．馬斯 </a>&nbsp;
-         <a href="../作者頁面/柯特．科爾斯泰特.html" class="link-secondary"> 柯特．科爾斯泰特 </a>
-       </li>
-       <li>
-         出&nbsp;版&nbsp;社：
-         <a href="../出版社頁面/野人出版社.html" class="link-secondary">野人文化</a>
-       </li>
-       <li>出&nbsp;版&nbsp;日&nbsp;期： 2022/11/02</li>
-       <li>ISBN：9789863847922</li>
-    </ul>
-     </div>
-     <!-- 分享及心得填寫按鈕 -->
-   <div class="d-flex">
-    <div class="dropdown">
-      <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
-          分享
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
-        <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
-        <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
-        <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
-      </ul>
+          <div class="modalContent">
+            <!-- 內容 -->
+            <div class="modal-content-inner">
+             <!-- 打叉離開 --> 
+             <div><span class="closeBtn">&times;</span></div>
+             <!-- 書籍封面 -->
+              <div>
+                <img src="./img/書籍照片/2城市.png" alt="">
+               </div>
+               <br>
+               <!-- 書籍資訊 書名、副標、hr、作者、出版社、出版日期、ISBN-->
+               <div>
+              <h1>99%隱形的城市日常設計</h1>
+              <h5 style="color: gray">The 99% Invisible City: A Field Guide to the Hidden World of Everyday Design</h5>
+              <hr />
+              <ul class="list-unstyled">
+                <li>
+                  作&nbsp;者：
+                   <a href="../作者頁面/羅曼．馬斯.html" class="link-secondary">  羅曼．馬斯 </a>&nbsp;
+                   <a href="../作者頁面/柯特．科爾斯泰特.html" class="link-secondary"> 柯特．科爾斯泰特 </a>
+                 </li>
+                 <li>
+                   出&nbsp;版&nbsp;社：
+                   <a href="../出版社頁面/野人出版社.html" class="link-secondary">野人文化</a>
+                 </li>
+                 <li>出&nbsp;版&nbsp;日&nbsp;期： 2022/11/02</li>
+                 <li>ISBN：9789863847922</li>
+              </ul>
+               </div>
+               <!-- 分享及心得填寫按鈕 -->
+             <div class="d-flex">
+              <div class="dropdown">
+                <button  type="button" class="btn btn-outline-secondary dropdown-toggle mx-1" data-bs-toggle="dropdown">
+                    分享
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-facebook" style="color: gray;"></i>&nbsp;分享到facebook</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-twitter-x" style="color: gray;"></i>&nbsp;分享到twitter</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-instagram" style="color: gray;"></i>&nbsp;分享到Instagram</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-threads" style="color: gray;"></i>&nbsp;分享到Threads</a></li>
+                </ul>
+              </div>
+              <!-- 設計彈出視窗，裡面為textarea -->
+              <div>
+                <button class="btn btn-outline-secondary mx-1"
+                data-bs-toggle="modal"
+                data-bs-target="#addBookNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
+              </div>
+              <div>
+                <button class="btn btn-outline-secondary mx-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addBookComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
+              </div>
+             </div>  
+            <!-- 書籍內容簡介 -->
+            <div class="mt-5">
+                <h4 style="color: grey;">內容簡介：</h4>
+                <p class="mt-2">
+                  <strong>
+                  猜猜看，你視而不見的城市美景有多少？<br>
+                  大約99%這麼多！<br>
+                  這是一本精美的城市指南，帶你重新發掘城市中<br>
+                  「存在有多久，你就無視有多久」的精巧設置！
+                  </strong>
+                  <br>
+                  <br>
+                  ★百貨公司跟高級大樓的旋轉門，除了美觀和趣味，難道還有其他功能？<br>
+                  ★所謂的「雲端」，是如何藏在「海底」的呢？<br>
+                  ★是哪個天才想到把在馬路畫中線，分開來往車輛與道路行人？<br>
+                  ★台北101的吉祥物，不只是101這三個數字的具象化，還是穩定這座超高摩天大樓的關鍵！<br>
+          <br>
+                 一座享譽國際的知名巨大建築物，它的美感和建築設計其實只佔整體設計的百分之一。本書的任務就是揭秘設計中不為人知的隱藏故事。的確，一座摩天高樓令人讚嘆，並且為城市提供了美麗的天際線，但是建造背後99%的隱藏故事才是最精彩的部分。<br>
+          <br>
+                 除了存在感強烈的巨大建築物，那些時常被視而不見、但卻是維繫城市文明運作的重大關鍵，例如基地台、郵局、噴泉、水塔、電線桿、緊急出口、自行車道、街道、墓地、公共照明，甚至觀賞用的鴿子、錦鯉……等，也將在本書中拿掉隱形濾鏡，重新出現在你的視野。<br>
+          <br>
+                 你有印象，你的城市市旗長什麼樣子、是誰設計的、對你的生活有什麼影響嗎?你知道最受觀光客歡迎的愛情鎖，其實超讓當地人頭大嗎？你有沒有想過，公園或車站裡讓你覺得硬梆梆又難坐的椅子，其實就是沒有要讓你久坐的意思？當然，一座城市要維持市容的最極端做法，當然就是把車站座椅拆光光，讓遊民無處可睡！但這是我們最理想的城市型態嗎？<br>
+          <br>
+                 看完本書後，你可能會開始對路邊微小的斜坡感到振奮，因為你已經知道它是多少人的抗爭成果；你可能會發現與其和亂丟垃圾的人硬碰硬，在髒亂處放上一尊佛像反而是個好主意；也可能你會因為知道美國每年有1/5的停電是松鼠造成的，往後遭遇停電時，便不會再感到這麼煩躁，而是為我們可愛又毛茸茸的朋友默哀……<br>
+          <br>
+                 本書作者Roman Mars與Kurt Kohlstedt是Podcast節目99% Invisible的主持人與製作人，他們藉由對城市的深入研究與觀察，搭配貫穿全書、充滿溫度又時尚精緻的手繪插畫，完成這本俐落的城市探險指南。本書將吸引任何對設計、城市環境、都市規劃以及熱愛觀察城市中不為人知風貌的宅宅（Nerd）們！。<br>
+              </p>
+                  
+            </div>
+            <button class="btn btn-outline-secondary m-1 d-flex ms-auto"> <i class="bi bi-trash3-fill"></i>&nbsp;從書架移除</button>
+           </div>
+          </div>
+</div>
+
+
+<!-- 暫時共用彈出視窗 -->
+  <!-- 新增筆記彈出視窗 -->
+  <div data-bs-backdrop="false" id="addBookNote" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>新增筆記</strong>
+                </h5>
+                <!-- 打叉離開 -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h6>筆記</h6>
+                <textarea name="" id="wer" cols="45" rows="10"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-outline-success">儲存</button>
+             </div>
+        </div>
     </div>
-    <!-- 設計彈出視窗，裡面為textarea -->
-    <div>
-      <button class="btn btn-outline-secondary mx-1"
-      data-bs-toggle="modal"
-      data-bs-target="addBook2Note"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;筆記</button>
-    </div>
-    <div>
-      <button class="btn btn-outline-secondary mx-1"
-          data-bs-toggle="modal"
-          data-bs-target="addBook2Comment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;評論</button>
-    </div>
-   </div>  
-  <!-- 書籍內容簡介 -->
-  <div class="mt-5">
-      <h4 style="color: grey;">內容簡介：</h4>
-      <p class="mt-2">
-        <strong>
-        猜猜看，你視而不見的城市美景有多少？<br>
-        大約99%這麼多！<br>
-        這是一本精美的城市指南，帶你重新發掘城市中<br>
-        「存在有多久，你就無視有多久」的精巧設置！
-        </strong>
-        <br>
-        <br>
-        ★百貨公司跟高級大樓的旋轉門，除了美觀和趣味，難道還有其他功能？<br>
-        ★所謂的「雲端」，是如何藏在「海底」的呢？<br>
-        ★是哪個天才想到把在馬路畫中線，分開來往車輛與道路行人？<br>
-        ★台北101的吉祥物，不只是101這三個數字的具象化，還是穩定這座超高摩天大樓的關鍵！<br>
-<br>
-       一座享譽國際的知名巨大建築物，它的美感和建築設計其實只佔整體設計的百分之一。本書的任務就是揭秘設計中不為人知的隱藏故事。的確，一座摩天高樓令人讚嘆，並且為城市提供了美麗的天際線，但是建造背後99%的隱藏故事才是最精彩的部分。<br>
-<br>
-       除了存在感強烈的巨大建築物，那些時常被視而不見、但卻是維繫城市文明運作的重大關鍵，例如基地台、郵局、噴泉、水塔、電線桿、緊急出口、自行車道、街道、墓地、公共照明，甚至觀賞用的鴿子、錦鯉……等，也將在本書中拿掉隱形濾鏡，重新出現在你的視野。<br>
-<br>
-       你有印象，你的城市市旗長什麼樣子、是誰設計的、對你的生活有什麼影響嗎?你知道最受觀光客歡迎的愛情鎖，其實超讓當地人頭大嗎？你有沒有想過，公園或車站裡讓你覺得硬梆梆又難坐的椅子，其實就是沒有要讓你久坐的意思？當然，一座城市要維持市容的最極端做法，當然就是把車站座椅拆光光，讓遊民無處可睡！但這是我們最理想的城市型態嗎？<br>
-<br>
-       看完本書後，你可能會開始對路邊微小的斜坡感到振奮，因為你已經知道它是多少人的抗爭成果；你可能會發現與其和亂丟垃圾的人硬碰硬，在髒亂處放上一尊佛像反而是個好主意；也可能你會因為知道美國每年有1/5的停電是松鼠造成的，往後遭遇停電時，便不會再感到這麼煩躁，而是為我們可愛又毛茸茸的朋友默哀……<br>
-<br>
-       本書作者Roman Mars與Kurt Kohlstedt是Podcast節目99% Invisible的主持人與製作人，他們藉由對城市的深入研究與觀察，搭配貫穿全書、充滿溫度又時尚精緻的手繪插畫，完成這本俐落的城市探險指南。本書將吸引任何對設計、城市環境、都市規劃以及熱愛觀察城市中不為人知風貌的宅宅（Nerd）們！。<br>
-    </p>
-        
   </div>
- </div>
-</div>
-</div>
-
-
-
-
+  
+  <!-- 新增評論彈出視窗 -->
+  <div data-bs-backdrop="false" id="addBookComment" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>撰寫評論</strong>
+                </h5>
+                <!-- 打叉離開 -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h6>評論</h6>
+                <textarea name="" id="wer" cols="45" rows="10"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-outline-success">儲存</button>
+             </div>
+        </div>
+    </div>
+  </div>
 
   <!-- footer -->
   <div>
@@ -1632,124 +1535,6 @@
     
     <!-- 引入 Bootstrap 5 的 JS 和 Popper -->
     <script src="./bootstrap.bundle.js"></script>
-    
-    <script>
-      // 控制頂端導航欄顯示與隱藏
-      const navbarTogglerBtn = document.getElementById("navbarTogglerBtn");
-      const navbarCollapse = document.getElementById("navbarNav");
-      
-      // 點擊漢堡按鈕時控制頂端導航欄的顯示與隱藏
-      navbarTogglerBtn.addEventListener("click", function () {
-        navbarCollapse.classList.toggle("show");
-      });
-      
-      // 當輸入特定ISBN並點選儲存會新增一個新書頁面在版面上
-      let clickAdd = document.querySelector("#saveNewBook");
-      let addNew = document.querySelector("#newBookHome");
-      var addNewBookModal = new bootstrap.Modal(
-        document.getElementById("addNewBook")
-      );
-      clickAdd.addEventListener("click", () => {
-        addNew.innerHTML = `
-        <div class="h-100">
-          <img src="./img/書籍照片/城市.jpg" alt="" class="bookCover card-img-top img-fluid mt-3" id="classCover11">
-          <div class="card-body">
-            <strong>
-              <h5 class="card-title ps-4 mt-2">99%隱形的城市日常設計</h5>
-              </strong>
-              <a href="../作者頁面/羅曼．馬斯.html" class="card-body ps-4 pt-5">羅曼．馬斯 </a><br/>
-              <a href="../作者頁面/柯特．科爾斯泰特.html" class="card-body ps-4 pt-5">柯特．科爾斯泰特</a>
-              <br />
-              <a class="card-body ps-4 pt-5" href="./出版社頁面/野人出版社.html">野人文化</a>
-              </div>
-              </div>`;
-              addNewBookModal.hide();
-            });
-
-            
-
-            // 獲取書籍封面和彈跳視窗的元素
-            let modals = {
-              bookCover1: document.getElementById("bookModal1"),
-              bookCover2: document.getElementById("bookModal2"),
-              bookCover3: document.getElementById("bookModal3"),
-              bookCover4: document.getElementById("bookModal4"),
-              bookCover5: document.getElementById("bookModal5"),
-              bookCover6: document.getElementById("bookModal6"),
-              bookCover7: document.getElementById("bookModal7"),
-              bookCover8: document.getElementById("bookModal8"),
-              bookCover9: document.getElementById("bookModal9"),
-              bookCover10: document.getElementById("bookModal10"),
-              bookCover11: document.getElementById("bookModal11"),
-              
-            };
-            
-            // 綁定書籍封面的點擊事件，打開對應的彈跳視窗
-            document.getElementById("classCover1").onclick = function() {
-              modals.bookCover1.style.display = "block";
-            };
-            document.getElementById("classCover2").onclick = function() {
-              modals.bookCover2.style.display = "block";
-            };
-            document.getElementById("classCover3").onclick = function() {
-              modals.bookCover3.style.display = "block";
-            };
-            document.getElementById("classCover4").onclick = function() {
-              modals.bookCover4.style.display = "block";
-            };
-            document.getElementById("classCover5").onclick = function() {
-              modals.bookCover5.style.display = "block";
-            };
-            document.getElementById("classCover6").onclick = function() {
-              modals.bookCover6.style.display = "block";
-            };
-            document.getElementById("classCover7").onclick = function() {
-              modals.bookCover7.style.display = "block";
-            };
-            document.getElementById("classCover8").onclick = function() {
-              modals.bookCover8.style.display = "block";
-            };
-            document.getElementById("classCover9").onclick = function() {
-              modals.bookCover9.style.display = "block";
-            };
-            document.getElementById("classCover10").onclick = function() {
-              modals.bookCover10.style.display = "block";
-            };
-            document.getElementById("classCover11").onclick = function() {
-              modals.bookCover11.style.display = "block";
-            };
-            
-            // 獲取特定彈跳視窗關閉按鈕
-            // let closeButtons = {
-              //   closeButtons1: document.querySelectorAll(".closeBtn")[0],
-              //   closeButtons2: document.querySelectorAll(".closeBtn")[1],
-              //   closeButtons3: document.querySelectorAll(".closeBtn")[2],
-              //   closeButtons4: document.querySelectorAll(".closeBtn")[3],
-              //   closeButtons5: document.querySelectorAll(".closeBtn")[4],
-              //   closeButtons6: document.querySelectorAll(".closeBtn")[5],
-              //   closeButtons7: document.querySelectorAll(".closeBtn")[6],
-              //   closeButtons8: document.querySelectorAll(".closeBtn")[7],
-    //   closeButtons9: document.querySelectorAll(".closeBtn")[8],
-    //   closeButtons10: document.querySelectorAll(".closeBtn")[9],
-    //   closeButtons11: document.querySelectorAll(".closeBtn")[10],
-    // };
-    
-    // 關不掉視窗，目前第一本書的關閉按鈕有id其他都沒有
-    document.getElementById("closebtn1").onclick=function(){
-      modals.bookCover11.style.display = "hidden";
-    }
-    console.log("closebtn1");
-    
-    
-    
-    
-    
-
-   
-
-
-
-
-    </script>
+    <script src="./personals_book.js"></script>
   </body>
 </html>

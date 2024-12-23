@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/bootstrap.css" />
     <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <link rel="icon" href="./img/主題標示.png" />
     <title>常見問題</title>
   </head>
@@ -53,8 +56,9 @@
                 <li>
                   <a class="dropdown-item" href="./個人書架.html">我的書櫃</a>
                 </li>
-                <li><a class="dropdown-item" href="./個人資料.html">個人資料
-                </a></li>
+                <li>
+                  <a class="dropdown-item" href="./個人資料.html">個人資料 </a>
+                </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                   <a
@@ -66,7 +70,6 @@
                 </li>
               </ul>
             </li>
-            
           </ul>
           <form class="d-flex">
             <input
@@ -85,79 +88,82 @@
     <!-- 輸入登入訊息彈跳視窗 -->
     <!-- 還須調整輸入完成後連結的頁面-個人書櫃 -->
     <div
-    class="modal fade"
-    id="loginModal"
-    tabindex="-1"
-    aria-labelledby="loginModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">登入</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <!-- 登入表單 -->
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="email" class="form-label">電子郵件</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                placeholder="輸入電子郵件"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">密碼</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="輸入密碼"
-                required
-              />
-            </div>
-            <div class="mb-3 form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="rememberMe"
-                name="rememberMe"
-              />
-              <label class="form-check-label" for="rememberMe">記住我</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100" id="enterP">登入</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            關閉
-          </button>
-          <a href="#" class="btn btn-link">忘記密碼?</a>
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">登入</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 登入表單 -->
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="email" class="form-label">電子郵件</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="輸入電子郵件"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="輸入密碼"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="rememberMe"
+                  name="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe">記住我</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100" id="enterP">
+                登入
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+            <a href="#" class="btn btn-link">忘記密碼?</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-    <br><br><br><br>
+    <br /><br />
+    <img src="./img/常見問題.png" alt="" style="width: 100%" />
+    <br /><br />
     <!-- 常見問題 -->
     <!-- 使用手風琴模式 -->
     <!-- https://bootstrap5.hexschool.com/docs/5.0/components/accordion/ -->
     <div class="container">
-    <h2>常見問題（FAQ）</h2>
       <div class="accordion" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -169,153 +175,358 @@
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-            1. 如何創建我的書櫃？
+              1. 如何註冊成為會員？
             </button>
           </h2>
           <div
             id="collapseOne"
             class="accordion-collapse collapse show"
+            aria-labelledby="heading1"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              註冊會員十分簡單，您只需點擊頁面右上角的「註冊」按鈕，填寫基本資料（如姓名、電子郵件、密碼）並提交表單即可成功註冊。完成註冊後，您可以享受部分免費功能，如瀏覽書籍和基本書架管理。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading2">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse2"
+              aria-expanded="false"
+              aria-controls="collapse2"
+            >
+              2. 什麼是付費會員，付費會員能解鎖哪些功能？
+            </button>
+          </h2>
+          <div
+            id="collapse2"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading2"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              付費會員提供更高級的功能，包括：<br />
+              <p>
+                ．自定義書架功能：根據個人需求創建自定義書架來分類和管理書籍。<br />
+                ．無限次收藏書籍：無需擔心收藏書籍的數量限制，您可以無限次將書籍添加到書架。
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading3">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse3"
+              aria-expanded="false"
+              aria-controls="collapse3"
+            >
+              3. 如何升級為付費會員？
+            </button>
+          </h2>
+          <div
+            id="collapse3"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading3"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              進入贊助我們後，選擇會員方案並完成支付。成功升級後，您將立即解鎖自定義書架及無限次收藏書籍等高級功能。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading4">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse4"
+              aria-expanded="true"
+              aria-controls="collapse4"
+            >
+              4. 如何新增自定義書架？
+            </button>
+          </h2>
+          <div
+            id="collapse4"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading4"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              成為付費會員後，您可以至個人書架點擊「新增書架」按鈕，然後輸入書架名稱（如「經典小說」、「學術書籍」等）。自定義書架將方便您管理不同類型的書籍。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading5">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse5"
+              aria-expanded="true"
+              aria-controls="collapse5"
+            >
+              5. 如何將書籍添加到書架？
+            </button>
+          </h2>
+          <div
+            id="collapse5"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading5"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              在找到想要收藏的書籍後，點擊書籍下方的「添加至書架」按鈕，並選擇一個書架。如果您是付費會員，您可以將書籍無限次添加到自定義書架。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading6">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse6"
+              aria-expanded="true"
+              aria-controls="collapse6"
+            >
+              6. 免費會員是否有收藏書籍的限制？
+            </button>
+          </h2>
+          <div
+            id="collapse6"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading6"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              是的，免費會員在收藏書籍數量上有一定限制。升級為付費會員後，您將可以無限制地收藏書籍。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading7">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse7"
+              aria-expanded="true"
+              aria-controls="collapse7"
+            >
+              7. 忘記密碼該怎麼辦？
+            </button>
+          </h2>
+          <div
+            id="collapse7"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading7"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              如果您忘記了密碼，請點擊登入頁面的「忘記密碼」連結，並按照提示輸入您的電子郵件。系統將發送重設密碼的郵件給您。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading8">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse8"
+              aria-expanded="true"
+              aria-controls="collapse8"
+            >
+              8. 書架的內容可以與他人分享嗎？
+            </button>
+          </h2>
+          <div
+            id="collapse8"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading8"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              我們正在開發書架分享功能，未來付費會員將可以將自定義書架分享給朋友或在社交媒體上展示。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading9">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse9"
+              aria-expanded="true"
+              aria-controls="collapse9"
+            >
+              9. 我可以在書架上為書籍添加筆記嗎？
+            </button>
+          </h2>
+          <div
+            id="collapse9"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading9"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              是的，您可以在每本書添加自己的筆記，這樣更方便您組織和回顧書籍的內容。付費會員可享有無限筆記和標籤功能。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading10">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse10"
+              aria-expanded="true"
+              aria-controls="collapse10"
+            >
+              10. 如何搜尋已收藏的書籍？
+            </button>
+          </h2>
+          <div
+            id="collapse10"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading10"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              您可以在書架管理頁面使用搜尋功能，通過書名、作者或標籤快速查找已收藏的書籍。這項功能對所有會員開放。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading11">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse11"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              11. 我可以從其他平台匯入書籍到書架嗎？
+            </button>
+          </h2>
+          <div
+            id="collapse11"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading11"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              目前不支援從其他平台匯入書籍。您需要在我們的書櫃中手動搜索並添加書籍。
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTen">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTen"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              12. 網站上的書籍數據來自哪裡？
+            </button>
+          </h2>
+          <div
+            id="collapseTen"
+            class="accordion-collapse collapse"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              <strong>要創建您的書櫃，首先需要註冊並登錄到我們的網站。登錄後，您可以通過“我的書櫃”頁面管理您的書籍，添加、刪除或標記書籍的閱讀進度。您可以選擇將書籍分為不同的分類（例如：正在閱讀、已讀、想讀等）。
+              我們的書籍數據來自公開的書籍資訊和文獻資料庫，涵蓋各種題材和類別，並會持續更新，確保用戶獲得最新的書籍資訊。
             </div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
+          <h2 class="accordion-header" id="heading12">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
+              data-bs-target="#collapse12"
+              aria-expanded="true"
+              aria-controls="collapse12"
             >
-         2. 如何添加書籍到書櫃？
+              12. 書籍的評論功能如何使用？
             </button>
           </h2>
           <div
-            id="collapseTwo"
+            id="collapse12"
             class="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
+            aria-labelledby="heading12"
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              <strong>在書籍詳情頁面，您將看到一個“添加到書櫃”按鈕。點擊該按鈕後，您可以選擇將書籍添加到“正在閱讀”、“已讀”或“想讀”分類中。您也可以通過搜索書籍名稱來查找書籍並將其加入書櫃。
+              您可以在每本書的詳細頁面撰寫書評，分享您的閱讀心得。評論功能對所有會員開放，付費會員可以撰寫無限次評論。
             </div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
+          <h2 class="accordion-header" id="heading13">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree"
+              data-bs-target="#collapse13"
+              aria-expanded="true"
+              aria-controls="collapse13"
             >
-            3. 我可以在哪裡查找我已讀的書籍？
+              13. 升級付費會員後是否可以退款？
             </button>
           </h2>
           <div
-            id="collapseThree"
+            id="collapse13"
             class="accordion-collapse collapse"
-            aria-labelledby="headingThree"
+            aria-labelledby="heading13"
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              <strong>您可以在“我的書櫃”頁面中查看所有已讀書籍。只需選擇“已讀”分類，系統將顯示所有標記為已讀的書籍。如果您沒有看到某本書，請確保您已經將其標記為“已讀”。
+              一旦升級為付費會員，根據會員政策，已支付的款項無法退款，但您可以享有完整的會員服務直到訂閱期結束。
             </div>
           </div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFour">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
-                4. 我如何更改我的書櫃分類？
-              </button>
-            </h2>
-            <div id="collapseFour" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>在書櫃頁面，找到您要修改的書籍，點擊書籍旁的“編輯”按鈕，然後選擇新的分類。保存更改後，該書籍將移動到您選擇的分類中。
-              </div>
-            </div>
+          <h2 class="accordion-header" id="heading14">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse14"
+              aria-expanded="true"
+              aria-controls="collapse14"
+            >
+              14. 其他問題
+            </button>
+          </h2>
+          <div
+            id="collapse14"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading14"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">如果有更多問題，請隨時聯繫客服。</div>
           </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFive">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
-                5. 我可以在書櫃中添加哪些類型的書籍？
-              </button>
-            </h2>
-            <div id="collapseFive" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>您可以將任何電子書、紙本書籍或您閱讀過的書籍添加到您的書櫃中。只要是您感興趣的書籍，都可以將其手動添加到書櫃，並根據閱讀狀況進行管理。
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingSix">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
-                6. 如何搜尋書籍？
-              </button>
-            </h2>
-            <div id="collapseSix" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong> 您可以使用書櫃頁面上方的搜尋框，輸入書名、作者或關鍵字來查找書籍。系統會自動根據您輸入的內容篩選並顯示相關書籍。
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingSeven">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseOne">
-                7. 如何刪除書籍？
-              </button>
-            </h2>
-            <div id="collapseSeven" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>若您想刪除書櫃中的書籍，請在書籍卡片旁找到刪除選項。點擊刪除後，該書籍將會從您的書櫃中移除，並且不再顯示在任何分類中。
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingEight">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseOne">
-                8. 我可以將書櫃中的書籍與他人共享嗎？
-              </button>
-            </h2>
-            <div id="collapseEight" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>當前，我們提供書籍分享功能，您可以將書櫃中的書籍透過社交平台或電郵與朋友或家人分享。我們會在未來版本中推出更多的共享功能，敬請期待。
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNine">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseOne">
-                9. 如何修改我的帳戶設置？
-              </button>
-            </h2>
-            <div id="collapseNine" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>您可以在“帳戶設置”頁面修改您的個人資料、密碼、通知設置等信息。只需登錄後，點擊頁面右上角的“設定”按鈕，即可進行設置修改。
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTen">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseOne">
-                10. 如何重置我的密碼？
-              </button>
-            </h2>
-            <div id="collapseTen" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>如果您忘記了密碼，請在登入頁面點擊“忘記密碼？”連結，然後根據提示輸入您的註冊郵箱。我們會向您發送一封重置密碼的郵件，您可以根據郵件中的指示重置您的密碼。
-              </div>
-            </div>
-          </div>
-          
+        </div>
       </div>
     </div>
 
@@ -324,19 +535,33 @@
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <il class="nav-item"
-            ><a href="./personal_library_index.html" class="nav-link px-2 text-muted">首頁</a></il
+            ><a
+              href="./personal_library_index.html"
+              class="nav-link px-2 text-muted"
+              >首頁</a
+            ></il
           >
           <il class="nav-item"
-            ><a href="./個人書架.html" class="nav-link px-2 text-muted">我的書架</a></il
+            ><a href="./個人書架.html" class="nav-link px-2 text-muted"
+              >我的書架</a
+            ></il
           >
           <il class="nav-item"
-            ><a href="./常見問題.html" class="nav-link px-2 text-muted">常見問題</a></il
+            ><a href="./常見問題.html" class="nav-link px-2 text-muted"
+              >常見問題</a
+            ></il
           >
           <il class="nav-item"
-            ><a href="./贊助頁面.html" class="nav-link px-2 text-muted">贊助我們</a></il
+            ><a href="./贊助頁面.html" class="nav-link px-2 text-muted"
+              >贊助我們</a
+            ></il
           >
           <il class="nav-item"
-            ><a href="mailto:book1yummy2@gmail.com" class="nav-link px-2 text-muted">聯絡我們</a></il
+            ><a
+              href="mailto:book1yummy2@gmail.com"
+              class="nav-link px-2 text-muted"
+              >聯絡我們</a
+            ></il
           >
         </ul>
 
@@ -348,12 +573,14 @@
     <script src="./bootstrap.bundle.js"></script>
     <!-- 控制導向個人頁面 -->
     <script>
-      document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // 阻止表單的預設提交行為
-    
-        // 成功後，跳轉到指定的頁面
-        window.location.href = "./個人資料.html"; // 替換為你自訂的頁面 URL
-      });
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // 阻止表單的預設提交行為
+
+          // 成功後，跳轉到指定的頁面
+          window.location.href = "./個人資料.html"; // 替換為你自訂的頁面 URL
+        });
     </script>
   </body>
 </html>

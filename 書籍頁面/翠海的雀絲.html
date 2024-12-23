@@ -216,70 +216,10 @@
                 </ul>
             </div>
                 
-              <div class="dropdown">
-                  <button  type="button" class="btn btn-outline-secondary mx-1" data-bs-toggle="dropdown">
-                    ...
-                </button>
-                <!-- 設計彈出視窗，裡面為textarea -->
-                <ul  class="dropdown-menu">
-                  <li>
-                    <button class="dropdown-item"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addNewNote"><i class="bi bi-stickies-fill" style="color: gray;"></i>&nbsp;新增筆記</button>
-                  </li>
-                  
-                  <li>
-                    <button class="dropdown-item"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addComment"><i class="bi bi-chat-left-text-fill" style="color: gray;"></i></i>&nbsp;撰寫評論</button>
-                  </li>
-                </ul>
-              </div>  
+
           </div>
 
-          <!-- 新增筆記彈出視窗 -->
-          <div data-bs-backdrop="static" id="addNewNote" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><strong>新增筆記</strong>
-                        </h5>
-                        <!-- 打叉離開 -->
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <h6>筆記</h6>
-                        <textarea name="" id="wer" cols="45" rows="10"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-outline-success">儲存</button>
-                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- 新增評論彈出視窗 -->
-        <div data-bs-backdrop="static" id="addComment" class="modal" tabindex="-1">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title"><strong>撰寫評論</strong>
-                      </h5>
-                      <!-- 打叉離開 -->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h6>評論</h6>
-                      <textarea name="" id="wer" cols="45" rows="10"></textarea>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                      <button type="button" class="btn btn-outline-success">儲存</button>
-                   </div>
-              </div>
-          </div>
-      </div>
 
           <div class="mt-5">
             <h4 style="color: grey;">內容簡介：</h4>
