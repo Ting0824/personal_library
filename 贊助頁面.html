@@ -84,8 +84,9 @@
             style="background-color: #77aaad"
           >
             <span
+              id="cart-count"
               class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
-              >+1 <span class="visually-hidden">unread messages</span></span
+              >+0 <span class="visually-hidden">unread messages</span></span
             >
           </button>
         </div>
@@ -214,7 +215,7 @@
               </button>
               <button
                 id="shopCart1"
-                class="btn text-end border-0"
+                class="btn text-end border-0 cart-btn"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 title="加入購物車"
@@ -250,7 +251,7 @@
               </button>
               <button
                 id="shopCart2"
-                class="btn text-end border-0"
+                class="btn text-end border-0 cart-btn"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 title="加入購物車"
@@ -286,7 +287,7 @@
               </button>
               <button
                 id="shopCart3"
-                class="btn text-end border-0"
+                class="btn text-end border-0 cart-btn"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 title="加入購物車"
@@ -322,7 +323,7 @@
               </button>
               <button
                 id="shopCart4"
-                class="btn text-end border-0"
+                class="btn text-end border-0 cart-btn"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 title="加入購物車"
@@ -376,45 +377,6 @@
       </footer>
     </div>
     <script src="./bootstrap.bundle.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var tooltipTriggerList = [].slice.call(
-          document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        );
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-      });
-
-      // 購物車點選購買後改變樣式
-      // 可以分寫在同一個程式碼內但分開執行嗎?
-      let cartBnt = document.querySelector("#shopCart1");
-      let cartBnt2 = document.querySelector("#shopCart2");
-      let cartBnt3 = document.querySelector("#shopCart3");
-      let cartBnt4 = document.querySelector("#shopCart4");
-
-      cartBnt.addEventListener("click", () => {
-        cartBnt.innerHTML = '<h3 class="bi bi-cart-fill"> </h3>';
-      });
-      cartBnt2.addEventListener("click", () => {
-        cartBnt2.innerHTML = '<h3 class="bi bi-cart-fill"> </h3>';
-      });
-      cartBnt3.addEventListener("click", () => {
-        cartBnt3.innerHTML = '<h3 class="bi bi-cart-fill"> </h3>';
-      });
-      cartBnt4.addEventListener("click", () => {
-        cartBnt4.innerHTML = '<h3 class="bi bi-cart-fill"> </h3>';
-      });
-
-      // 控制導向個人頁面
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // 阻止表單的預設提交行為
-
-          // 成功後，跳轉到指定的頁面
-          window.location.href = "./個人資料.html"; // 替換為你自訂的頁面 URL
-        });
-    </script>
+    <script src="./donate.js"></script>
   </body>
 </html>
