@@ -1,6 +1,6 @@
-#  個人書架 Personal Bookshelf
+#  個人書架 Personal Library
 
-這是一個使用 HTML、CSS、JavaScript 和 Bootstrap 製作的靜態「個人書架」網站，用來展示個人收藏的書籍清單，重點在於版面設計與響應式排版練習。
+這是一個使用 HTML、CSS、JavaScript 和 Bootstrap 製作的靜態「個人書庫」網站，用來展示個人收藏的書籍清單，重點在於版面設計與響應式排版練習。
 
 ##  專案特色
 
@@ -50,6 +50,7 @@ personal-library/
 
 ## ppt連結
 
+```bash
 https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content=DAGovrGhuTc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc20af70ca5
 
 ## 未來改進方向
