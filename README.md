@@ -50,13 +50,13 @@ personal-library/
 
 ## ppt連結
 
-```bash
-https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content=DAGovrGhuTc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc20af70ca5
+[點此查看 Canva 簡報](https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content=DAGovrGhuTc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc20af70ca5)
+
 
 ## 未來改進方向
 
-- 新建Usra-personal-library專案
-- 串接google API
+- 新建 Usra-personal-library 專案
+- 串接 Google API
 - 改為由使用者實際操作新增書籍
 - 加入書籍分類、搜尋與篩選功能
 - 整合 LocalStorage 或後端 API 儲存資料
@@ -64,4 +64,5 @@ https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content
 ## License
 
 本專案為個人練習作品，僅供學習與展示使用，無授權限制。
+
 
