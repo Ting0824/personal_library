@@ -20,14 +20,47 @@
 
 ## 專案結構
 personal-library/
-├── personal_library_index.html # 主頁面
+├── index.html # 主頁面
+├── 個人書架.html 
+├── 個人資料.html 
+├── 常見問題.html 
+├── 最新消息.html 
+├── 贊助頁面.html 
 ├── css/
 │ └── bookshelf.css # 自訂樣式檔
 │ └── bootstrap.css 
 │ └── index.css # 自訂樣式檔
-├── personals_bookt.js # 插入假書籍資料的 JavaScript 程式
-├── donate.js # 在「贊助我們」頁面控制右上角購物車數字的 JavaScript 程式
-├── bootstrap.bundle.js 
-└── assets/
-└── images/ # 書籍封面圖片或預設圖片
+├── js/
+│ └── personals_bookt.js # 插入假書籍資料的 JavaScript 程式
+│ └──  donate.js # 在「贊助我們」頁面控制右上角購物車數字的 JavaScript 程式
+│ └──  bootstrap.bundle.js 
+└── img/ # 書籍封面圖片或預設圖片
+└── 出版社頁面/ 
+└── 作者頁面/ 
+└── 書籍頁面/
+
+## 使用方式
+
+1. 將專案 clone 到本地端：
+   ```bash
+  git clone https://github.com/Ting0824/personal_library.git
+  
+2. 開啟 index.html 即可在瀏覽器中使用，無需後端伺服器。
+
+
+## ppt連結
+
+https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content=DAGovrGhuTc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc20af70ca5
+
+## 未來改進方向
+
+- 新建Usra-personal-library專案
+- 串接google API
+- 改為由使用者實際操作新增書籍
+- 加入書籍分類、搜尋與篩選功能
+- 整合 LocalStorage 或後端 API 儲存資料
+
+## License
+
+本專案為個人練習作品，僅供學習與展示使用，無授權限制。
 
