@@ -52,6 +52,12 @@ personal-library/
 
 [點此查看 Canva 簡報](https://www.canva.com/design/DAGovrGhuTc/1xga0pIVQwtDEdnO513drQ/view?utm_content=DAGovrGhuTc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc20af70ca5)
 
+## 參考資料及圖片來源
+- 博客來
+- Readmoo 讀墨
+- Anobii
+- TAAZE讀冊 冊格子
+
 
 ## 未來改進方向
 
