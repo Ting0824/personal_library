@@ -43,7 +43,7 @@ personal-library/
 
 1. 將專案 clone 到本地端：
    ```bash
-   git clone https://github.com/你的帳號/personal-bookshelf.git
+   git clone https://github.com/Ting0824/personal_library.git
   
 2. 開啟 index.html 即可在瀏覽器中使用，無需後端伺服器。
 
